@@ -1,7 +1,23 @@
 import React from "react";
+import { UserInfo } from "./type";
+import $ from "jquery";
 
-export const Card = (props: { id: number, dt: string }) => {
-  const dt = JSON.parse(props.dt);
+const getInfo = (id: number): UserInfo => {
+  let ans: UserInfo;
+  $.ajax({
+    async: false,
+    type: "GET",
+    url: `https://www.luogu.com.cn/user/${id}`,
+    headers: { "x-luogu-type": "content-only" },
+    success: (res) => { ans = res.currentData.user; }
+  });
+  return ans;
+};
+
+export const Card = (props: { id: number }) => {
+  const dt = getInfo(props.id);
+  if (dt === undefined)
+    console.error(`Get user ${props.id} info failed!`);
   return (
     <div style={{width: 300, borderRadius: 5, overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 0 5px 1px #999", background: "#fff"}}>
       <div style={{width: "100%", height: 60, background: `url(${dt.background}) no-repeat`, backgroundSize: `cover`}}></div>

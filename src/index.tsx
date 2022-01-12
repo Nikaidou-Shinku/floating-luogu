@@ -1,7 +1,7 @@
 import React from "react";
 import { Hello, CardLoader } from "./components";
-import $ from "jquery";
 import { render } from "react-dom";
+import $ from "jquery";
 
 const container = $(".lg-index-content");
 if (container.length > 0) {
