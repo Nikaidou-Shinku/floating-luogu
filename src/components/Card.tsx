@@ -32,16 +32,19 @@ const InfoCard = (props: { info: UserInfo }) => {
       <div style={{display: "flex", flexDirection: "column"}}>
         <div style={{display: "flex", flexDirection: "row", width: "100%", position: "relative", height: 52}}>
           <div style={{width: 80}}>
-            <div style={{background: `url(https://cdn.luogu.com.cn/upload/usericon/${userInfo.uid}.png) no-repeat`, backgroundSize: `cover`, width: 60, height: 60, borderRadius: 30, position: "absolute", top: -16, left: 10}}></div>
+          <div style={{backgroundColor: "#fff", boxShadow: "0 0 5px 1px #999", background: `url(https://cdn.luogu.com.cn/upload/usericon/${userInfo.uid}.png) no-repeat`, backgroundSize: `cover`, width: 60, height: 60, borderRadius: 30, position: "absolute", top: -16, left: 10}} />
           </div>
           <div style={{flex: 1}}>
-            <div className={("lg-fg-" + userInfo.color.toLowerCase())} style={{fontWeight: "bold", fontSize: 16}}>{userInfo.name}</div>
+            <div className={("lg-fg-" + userInfo.color.toLowerCase())} style={{fontWeight: "bold", fontSize: 16}}>
+              {userInfo.name}
+              {userInfo.badge !== "" && <span className={("am-badge am-radius lg-bg-" + userInfo.color.toLowerCase())} style={{marginLeft: 5}}>{userInfo.badge}</span>}
+            </div>
             <div style={{color: "grey", fontSize: 14}}>#{userInfo.uid}</div>
           </div>
         </div>
         <div style={{fontSize: 14, margin: "0px 15px", fontWeight: "normal"}}>{userInfo.slogan}</div>
         <div style={{display: "flex", flexDirection: "row", width: "100%"}}>
-        <div style={{flex: 1, margin: 10}}>
+          <div style={{flex: 1, margin: 10}}>
             <div style={{textAlign: "center", fontSize: 12}}>关注</div>
             <div style={{textAlign: "center", fontSize: 16}}>{userInfo.followingCount}</div>
           </div>
@@ -55,7 +58,7 @@ const InfoCard = (props: { info: UserInfo }) => {
           </div>
           <div style={{flex: 1, margin: 10}}>
             <div style={{textAlign: "center", fontSize: 12}}>咕值排名</div>
-            <div style={{textAlign: "center", fontSize: 16}}>{userInfo.ranking}</div>
+            <div style={{textAlign: "center", fontSize: 16}}>{userInfo.ranking == null ? "-" : String(userInfo.ranking)}</div>
           </div>
         </div>
       </div>

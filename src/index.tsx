@@ -36,8 +36,10 @@ const loadCard = (baseNode: Node) => {
 $(window).on("load", () => { loadCard(document); });
 
 const benbenNode = $("#feed")[0];
-const observer = new MutationObserver((mutations, _observer) => {
-  const nodeList = mutations[0].addedNodes;
-  nodeList.forEach((node) => { loadCard(node); });
-});
-observer.observe(benbenNode, { childList: true });
+if (benbenNode !== undefined) {
+  const observer = new MutationObserver((mutations, _observer) => {
+    const nodeList = mutations[0].addedNodes;
+    nodeList.forEach((node) => { loadCard(node); });
+  });
+  observer.observe(benbenNode, { childList: true });  
+}
