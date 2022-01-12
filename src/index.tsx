@@ -13,5 +13,5 @@ $("a").filter((_index, element) => {
   const res = href.match(/^\/user\/\d+$/);
   return res !== null;
 }).each((index, element) => {
-  render(<CardLoader init={element.innerHTML} />, element);
+  render(<CardLoader init={element.innerHTML} />, document.getElementById("user-card-app"));
 });
