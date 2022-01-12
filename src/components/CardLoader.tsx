@@ -1,7 +1,12 @@
 import React, { CSSProperties, useState } from "react";
 import { Card } from ".";
+import $ from "jquery";
 
 let floatNumber = 2000100;
+
+const getUID = (raw: string): number => {
+  return Number($(raw).attr("href").substring(6));
+};
 
 export const CardLoader = (props: { init: string }) => {
   floatNumber += 100;
@@ -40,10 +45,12 @@ export const CardLoader = (props: { init: string }) => {
     }
   };
 
+  const uid = getUID(props.init);
+
   return (
     <div style={INLINE_STYLE} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
       <div style={INLINE_STYLE} dangerouslySetInnerHTML={{ __html: props.init }} />
-      {isCardDisplay && <div style={CARD_STYLE}><Card id={126486} /></div>}
+      {isCardDisplay && <div style={CARD_STYLE}><Card id={uid} /></div>}
     </div>
   );
 };
