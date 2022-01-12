@@ -2,29 +2,44 @@ import React, { useState } from "react";
 import { Card } from ".";
 
 export const CardLoader = (props: { init: string }) => {
-  const STYLE = {
+  const INLINE_STYLE = {
     display: "inline"
   };
+  const CARD_STYLE = {
+    
+  };
 
-  const [mouseOn, setMouse] = useState(false);
+  const [isCardDisplay, setCard] = useState(false);
+  let cardTimeout: NodeJS.Timer = null;
 
   const mouseEnter = () => {
-    setMouse(true);
-    console.log(props.init, "In");
+    if (isCardDisplay) {
+      clearTimeout(cardTimeout);
+      cardTimeout = null;
+    } else {
+      cardTimeout = setTimeout(() => {
+        setCard(true);
+        cardTimeout = null;
+      }, 1000);
+    }
   };
 
   const mouseLeave = () => {
-    setMouse(false);
-    console.log(props.init, "Out");
+    if (isCardDisplay) {
+      cardTimeout = setTimeout(() => {
+        setCard(false);
+        cardTimeout = null;
+      }, 1000);
+    } else {
+      clearTimeout(cardTimeout);
+      cardTimeout = null;
+    }
   };
 
   return (
-    <div style={STYLE} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
-      <a dangerouslySetInnerHTML={{ __html: props.init }} />
-      {mouseOn && <Card id={126486} />}
+    <div style={INLINE_STYLE} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+      <div style={INLINE_STYLE} dangerouslySetInnerHTML={{ __html: props.init }} />
+      {isCardDisplay && <div style={CARD_STYLE}><Card id={126486} /></div>}
     </div>
-    // <a onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
-    //   {mouseOn && <Card id={126486} />}
-    // </a>
   );
 };
