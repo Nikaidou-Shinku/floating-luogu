@@ -24,7 +24,7 @@ export const CardLoader = (props: { init: string }) => {
       cardTimeout = setTimeout(() => {
         setCard(true);
         cardTimeout = null;
-      }, 1000);
+      }, 750);
     }
   };
 
@@ -33,7 +33,7 @@ export const CardLoader = (props: { init: string }) => {
       cardTimeout = setTimeout(() => {
         setCard(false);
         cardTimeout = null;
-      }, 1000);
+      }, 750);
     } else {
       clearTimeout(cardTimeout);
       cardTimeout = null;
