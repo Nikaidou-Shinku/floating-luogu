@@ -3,7 +3,7 @@ import { Card } from ".";
 
 let floatNumber = 2000100;
 
-export const CardLoader = (props: { init: string }) => {
+export const CardLoader = (props: { init: string, uid: number }) => {
   floatNumber += 100;
   const INLINE_STYLE = {
     display: "inline"
@@ -24,7 +24,7 @@ export const CardLoader = (props: { init: string }) => {
       cardTimeout = setTimeout(() => {
         setCard(true);
         cardTimeout = null;
-      }, 1000);
+      }, 750);
     }
   };
 
@@ -33,7 +33,7 @@ export const CardLoader = (props: { init: string }) => {
       cardTimeout = setTimeout(() => {
         setCard(false);
         cardTimeout = null;
-      }, 1000);
+      }, 750);
     } else {
       clearTimeout(cardTimeout);
       cardTimeout = null;
@@ -43,7 +43,7 @@ export const CardLoader = (props: { init: string }) => {
   return (
     <div style={INLINE_STYLE} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
       <div style={INLINE_STYLE} dangerouslySetInnerHTML={{ __html: props.init }} />
-      {isCardDisplay && <div style={CARD_STYLE}><Card id={126486} /></div>}
+      {isCardDisplay && <div style={CARD_STYLE}><Card id={props.uid} /></div>}
     </div>
   );
 };
