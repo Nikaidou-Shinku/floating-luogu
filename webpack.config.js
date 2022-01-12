@@ -3,8 +3,8 @@ const path = require("path");
 module.exports = {
   entry: "./src/index.tsx",
   devtool: "source-map",
-  mode: "development",
-  // mode: "production",
+  // mode: "development",
+  mode: "production",
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
