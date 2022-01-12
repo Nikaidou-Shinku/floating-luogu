@@ -19,10 +19,10 @@ export const Card = (props: { id: number }) => {
   if (dt === undefined)
     console.error(`Get user ${props.id} info failed!`);
   return (
-    <div style={{width: 300, borderRadius: 5, overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 0 5px 1px #999", background: "#fff"}}>
+    <div style={{width: 300, borderRadius: 5, overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 0 5px 1px #999", background: "#fff", fontWeight: "bold", textAlign: "center"}}>
       <div style={{width: "100%", height: 60, background: `url(${dt.background}) no-repeat`, backgroundSize: `cover`}}></div>
       <div style={{display: "flex", flexDirection: "column"}}>
-        <div style={{display: "flex", flexDirection: "row", width: "100%", position: "relative"}}>
+        <div style={{display: "flex", flexDirection: "row", width: "100%", position: "relative", height: 52}}>
           <div style={{width: 80}}>
             <div style={{background: `url(https://cdn.luogu.com.cn/upload/usericon/${dt.uid}.png) no-repeat`, backgroundSize: `cover`, width: 60, height: 60, borderRadius: 30, position: "absolute", top: -16, left: 10}}></div>
           </div>
@@ -31,7 +31,7 @@ export const Card = (props: { id: number }) => {
             <div style={{color: "grey", fontSize: 14}}>#{dt.uid}</div>
           </div>
         </div>
-        <div style={{fontSize: 14, margin: "5px 15px"}}>{dt.slogan}</div>
+        <div style={{fontSize: 14, margin: "0px 15px", fontWeight: "normal"}}>{dt.slogan}</div>
         <div style={{display: "flex", flexDirection: "row", width: "100%"}}>
           <div style={{flex: 1, margin: 10}}>
             <div style={{textAlign: "center", fontSize: 12}}>关注者</div>
