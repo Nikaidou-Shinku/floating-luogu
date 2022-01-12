@@ -18,8 +18,9 @@ const getInfo = (id: number): UserInfo => {
 
 const FailedCard = () => {
   return (
-    <div>
-
+    <div style={{width: 300, borderRadius: 5, overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 0 5px 1px #999", background: "#fff", fontWeight: "bold", textAlign: "center"}}>
+      <h2 style={{marginTop: 20}}>加载卡片失败了哦……</h2>
+      <h5>试着检查下网络？</h5>
     </div>
   );
 };
@@ -35,11 +36,11 @@ const InfoCard = (props: { info: UserInfo }) => {
           <div style={{backgroundColor: "#fff", boxShadow: "0 0 5px 1px #999", background: `url(https://cdn.luogu.com.cn/upload/usericon/${userInfo.uid}.png) no-repeat`, backgroundSize: `cover`, width: 60, height: 60, borderRadius: 30, position: "absolute", top: -16, left: 10}} />
           </div>
           <div style={{flex: 1}}>
-            <div className={("lg-fg-" + userInfo.color.toLowerCase())} style={{fontWeight: "bold", fontSize: 16}}>
+            <div className={("lg-fg-" + userInfo.color.toLowerCase())} style={{fontWeight: "bold", fontSize: 18}}>
               {userInfo.name}
               {userInfo.badge !== "" && <span className={("am-badge am-radius lg-bg-" + userInfo.color.toLowerCase())} style={{marginLeft: 5}}>{userInfo.badge}</span>}
             </div>
-            <div style={{color: "grey", fontSize: 14}}>#{userInfo.uid}</div>
+            <div style={{color: "grey", fontSize: 16}}>#{userInfo.uid}</div>
           </div>
         </div>
         <div style={{fontSize: 14, margin: "0px 15px", fontWeight: "normal"}}>{userInfo.slogan}</div>
