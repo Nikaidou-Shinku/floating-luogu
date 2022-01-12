@@ -33,6 +33,8 @@ const loadCard = () => {
   });
 };
 
+loadCard();
+
 $("#feed-more").on("click", () => {
   setTimeout(loadCard, 2000);
 });
