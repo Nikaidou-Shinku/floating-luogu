@@ -9,8 +9,8 @@ import $ from "jquery";
 //   render(<Hello />, document.getElementById("user-card-hello"));
 // }
 
-const loadCard = () => {
-  $("a").filter((_index, element) => {
+const loadCard = (baseNode: Node) => {
+  $(baseNode).find("a").filter((_index, element) => {
     const parent = $(element).parent();
     if (parent.attr("isCard") !== undefined)
       return false;
@@ -34,11 +34,11 @@ const loadCard = () => {
   });
 };
 
-loadCard();
+$(window).on("load", () => { loadCard(document); });
 
-$("#feed-more").on("click", () => {
-  setTimeout(loadCard, 2000);
+const benbenNode = $("#feed")[0];
+const observer = new MutationObserver((mutations, _observer) => {
+  const nodeList = mutations[0].addedNodes;
+  nodeList.forEach((node) => { loadCard(node); });
 });
-$(".feed-selector").on("click", () => {
-  setTimeout(loadCard, 2000);
-})
+observer.observe(benbenNode, { childList: true });
