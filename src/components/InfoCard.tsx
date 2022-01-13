@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import { UserInfo } from "../data/interfaces/types";
-import { AM_BADGE_STYLE, AM_RADIUS_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar } from "../styles/luoguStyles";
+import { AM_BADGE_STYLE, AM_RADIUS_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
 import { consts } from "../data/constants";
 
@@ -123,6 +123,8 @@ const CCFLevelBadge = (props: {value: number}) => {
 };
 
 export const InfoCard = (userInfo: UserInfo) => {
+  if (userInfo.background === "")
+    userInfo.background = defaultBackgroundURL;
   const cUID = consts.currentUID;
   const userColor = userInfo.color.toLowerCase();
   const userBadge = userColor === "cheater" ? "作弊者" : userInfo.badge;
