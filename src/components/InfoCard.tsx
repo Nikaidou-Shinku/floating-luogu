@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react";
-import { UserInfo } from "../interfaces/types";
+import { UserInfo } from "../data/interfaces/types";
 import { AM_BADGE_STYLE, AM_RADIUS_STYLE, LG_BG, LG_FG, defaultBackgroundURL, bannedUserAvatar } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
 
