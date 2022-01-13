@@ -4,8 +4,6 @@ import $ from "jquery";
 
 let floatNumber = 2000100;
 
-const MAX_WIDTH = document.body.clientWidth;
-
 const INLINE_STYLE: CSSProperties = {
   display: "inline"
 };
@@ -14,7 +12,7 @@ const getUID = (raw: string): number => {
   return Number($(raw).attr("href").substring(6));
 };
 
-export const CardLoader = (props: { init: string }) => {
+export const CardLoader = (props: { init: string, cardid: number }) => {
   floatNumber += 100;
   const cardStyle: CSSProperties = {
     position: "absolute",
@@ -33,14 +31,16 @@ export const CardLoader = (props: { init: string }) => {
       cardTimeout = null;
     } else {
       cardTimeout = setTimeout(() => {
-        cardStyle.top = e.nativeEvent.layerY + 70;
-        cardStyle.left = e.nativeEvent.layerX - 150;
-        const delta = e.clientX + 193 - MAX_WIDTH;
+        cardStyle.top = e.pageY + 20;
+        cardStyle.left = e.pageX - 150;
+        const delta = e.clientX + 193 - document.body.clientWidth;
+        const delta2 = 200 - e.clientX;
         if (delta > 0) cardStyle.left -= delta;
+        if (delta2 > 0) cardStyle.left += delta2;
         setStyle(cardStyle);
         setCard(true);
         cardTimeout = null;
-      }, 750);
+      }, 500);
     }
   };
 
@@ -49,7 +49,7 @@ export const CardLoader = (props: { init: string }) => {
       cardTimeout = setTimeout(() => {
         setCard(false);
         cardTimeout = null;
-      }, 750);
+      }, 500);
     } else {
       clearTimeout(cardTimeout);
       cardTimeout = null;
@@ -57,10 +57,11 @@ export const CardLoader = (props: { init: string }) => {
   };
 
   const uid = getUID(props.init);
-
+  $(`[cardid=${props.cardid}]`).off("mouseenter").off("mouseleave")
+    .on("mouseenter", mouseEnter).on("mouseleave", mouseLeave);
+  // onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}
   return (
     <div style={INLINE_STYLE} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
-      <div style={INLINE_STYLE} dangerouslySetInnerHTML={{ __html: props.init }} />
       {isCardDisplay && <div style={realCardStyle}><Card id={uid} /></div>}
     </div>
   );
