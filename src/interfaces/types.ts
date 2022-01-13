@@ -27,3 +27,13 @@ export interface UserInfo {
   ccfLevel: number,
   isRoot: boolean
 }
+
+export interface ColorTable {
+  purple: string,
+  red: string,
+  orange: string,
+  green: string,
+  bluelight: string,
+  gray: string,
+  brown: string
+}

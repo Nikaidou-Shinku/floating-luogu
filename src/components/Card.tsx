@@ -1,61 +1,33 @@
-import React from "react";
-import { UserInfo } from "./type";
 import $ from "jquery";
+import React from "react";
+import { UserInfo } from "../interfaces/types";
+import { InfoCard, FailedCard } from ".";
 
-const getInfo = (id: number): UserInfo => {
+const defaultBackgroundURL = "https://cdn.luogu.org/images/bg/fe/DSCF0530-shrink.jpg";
+
+const getInfo = (id: number): [UserInfo, number] => {
   let ans: UserInfo;
+  let num: number;
   $.ajax({
     async: false,
     type: "GET",
     url: `https://www.luogu.com.cn/user/${id}`,
     headers: { "x-luogu-type": "content-only" },
-    success: (res) => { ans = res.currentData.user; }
+    success: (res) => { ans = res.currentData.user;
+       num = (res.currentUser != undefined ? res.currentUser.uid : -2); }
   });
-  return ans;
+  return [ans, num];
 };
 
 export const Card = (props: { id: number }) => {
-  const dt = getInfo(props.id);
-  if (dt === undefined)
-    console.error(`Get user ${props.id} info failed!`);
-  if (dt !== undefined && dt.background == "")
-    dt.background = "https://cdn.luogu.org/images/bg/fe/DSCF0530-shrink.jpg";
-  return (
-    <div style={{width: 300, borderRadius: 5, overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 0 5px 1px #999", background: "#fff", fontWeight: "bold", textAlign: "center"}}>
-      <div style={{width: "100%", height: 60, background: `url(${dt.background}) no-repeat`, backgroundSize: `cover`}}></div>
-      <div style={{display: "flex", flexDirection: "column"}}>
-        <div style={{display: "flex", flexDirection: "row", width: "100%", position: "relative", height: 52}}>
-          <div style={{width: 80}}>
-            <div style={{backgroundColor: "#fff", boxShadow: "0 0 5px 1px #999", backgroundImage: `url(https://cdn.luogu.com.cn/upload/usericon/${dt.uid}.png) no-repeat`, backgroundSize: `cover`, width: 60, height: 60, borderRadius: 30, position: "absolute", top: -16, left: 10}}></div>
-          </div>
-          <div style={{flex: 1}}>
-            <div className={("lg-fg-" + dt.color.toLowerCase())} style={{fontWeight: "bold", fontSize: 16}}>{dt.name}{
-              dt.badge === "" ? <span></span> : 
-              <span className={("am-badge am-radius lg-bg-" + dt.color.toLowerCase())} style={{marginLeft: 10}}>{dt.badge}</span>
-            }</div>
-            <div style={{color: "grey", fontSize: 14}}>#{dt.uid}</div>
-          </div>
-        </div>
-        <div style={{fontSize: 14, margin: "0px 15px", fontWeight: "normal"}}>{dt.slogan}</div>
-        <div style={{display: "flex", flexDirection: "row", width: "100%"}}>
-          <div style={{flex: 1, margin: 10}}>
-            <div style={{textAlign: "center", fontSize: 12}}>关注</div>
-            <div style={{textAlign: "center", fontSize: 16}}>{dt.followingCount}</div>
-          </div>
-          <div style={{flex: 1, margin: 10}}>
-            <div style={{textAlign: "center", fontSize: 12}}>粉丝</div>
-            <div style={{textAlign: "center", fontSize: 16}}>{dt.followerCount}</div>
-          </div>
-          <div style={{flex: 1, margin: 10}}>
-            <div style={{textAlign: "center", fontSize: 12}}>排名</div>
-            <div style={{textAlign: "center", fontSize: 16}}>{dt.ranking == null ? '-' : String(dt.ranking)}</div>
-          </div>
-          <div style={{flex: 1, margin: 10}}>
-            <div style={{textAlign: "center", fontSize: 12}}>通过</div>
-            <div style={{textAlign: "center", fontSize: 16}}>{dt.passedProblemCount}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  let getInfoOK = true;
+  const userInfo = getInfo(props.id);
+  if (userInfo === undefined) {
+    console.error(`Get user ${props.id}'s info failed!`);
+    getInfoOK = false;
+  } else {
+    if (userInfo[0].background === "")
+      userInfo[0].background = defaultBackgroundURL;
+  }
+  return getInfoOK ? <InfoCard info={userInfo[0]} currUID={userInfo[1]} /> : <FailedCard />;
 };
