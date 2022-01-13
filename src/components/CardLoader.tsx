@@ -1,4 +1,4 @@
-import React, { CSSProperties, useCallback, useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import { Card } from ".";
 import $ from "jquery";
 
@@ -35,7 +35,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
 
 export const CardLoader = (props: { init: string, id: number }) => {
   const [isCardDisplay, setCard] = useState(false);
-  const [realCardStyle, setStyle] = useState(null);
+  const [realCardStyle, setStyle] = useState<CSSProperties>(null);
 
   let cardTimeout: NodeJS.Timer = null;
 

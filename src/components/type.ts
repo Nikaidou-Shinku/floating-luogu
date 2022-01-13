@@ -4,6 +4,10 @@ interface Prize {
   prize: string
 }
 
+export interface CardProps {
+  id: number;
+}
+
 export interface UserInfo {
   registerTime: number,
   introduction: string,
