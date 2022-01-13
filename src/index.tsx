@@ -8,6 +8,10 @@ if (container.length > 0) {
   container.prepend(`<div class="am-g" id="user-card-hello" />`);
   render(<Hello />, document.getElementById("user-card-hello"));
 }
+const cardContainer = $("<div style='position: absolute; top: 0; left: 0'></div>");
+$("body").append(cardContainer);
+
+let cardID = 0;
 
 const loadCard = (baseNode: Node) => {
   $(baseNode).find("a").filter((_index, element) => {
@@ -24,10 +28,10 @@ const loadCard = (baseNode: Node) => {
     const childrenList = $(element).parent().children();
     childrenList.each((_index, element_now) => {
       if (element_now === element) {
-        const container = $(`<div style="display: inline;" />`);
-        $(element_now).after(container);
-        render(<CardLoader init={element_now.outerHTML} />, container[0]);
-        element_now.remove();
+        $(element_now).attr("cardID", ++ cardID);
+        const container = $(`<div style="display: inline;" cardid=${cardID}/>`);
+        cardContainer.append(container);
+        render(<CardLoader init={element_now.outerHTML} cardid={cardID}/>, container[0]);
       }
     });
   });
