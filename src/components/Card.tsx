@@ -1,6 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import { UserInfo } from "../data/interfaces/types";
+import { getUser } from "../data/LuoguAPI";
 import { InfoCard, FailedCard } from ".";
 
 const getInfo = (id: number): UserInfo => {
@@ -8,9 +9,13 @@ const getInfo = (id: number): UserInfo => {
   $.ajax({
     async: false,
     type: "GET",
-    url: `https://www.luogu.com.cn/user/${id}`,
-    headers: { "x-luogu-type": "content-only" },
-    success: (res) => { ans = res.currentData.user; }
+    url: getUser(id),
+    headers: {
+      "x-luogu-type": "content-only"
+    },
+    success: (res) => {
+      ans = res.currentData.user;
+    }
   });
   return ans;
 };

@@ -2,6 +2,7 @@ import $ from "jquery";
 import React from "react";
 import { render } from "react-dom";
 import { userPageRegex, consts } from "./data/constants";
+import { getUser } from "./data/LuoguAPI";
 import { Hello, CardLoader } from "./components";
 
 const helloContainer = $(".lg-index-content");
@@ -49,8 +50,10 @@ const getSelf = () => {
   $.ajax({
     async: false,
     type: "GET",
-    url: `https://www.luogu.com.cn/user/3`,
-    headers: { "x-luogu-type": "content-only" },
+    url: getUser(3),
+    headers: {
+      "x-luogu-type": "content-only"
+    },
     success: (res) => {
       const tmp = res.currentUser;
       if (tmp !== undefined)

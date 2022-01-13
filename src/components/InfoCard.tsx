@@ -1,7 +1,8 @@
-import $, { data } from "jquery";
+import $ from "jquery";
 import React, { CSSProperties, useState } from "react";
 import { UserInfo } from "../data/interfaces/types";
 import { consts } from "../data/constants";
+import { chatWith, getAvatar, UPDATE_FOLLOW } from "../data/LuoguAPI";
 import { BADGE_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
 
@@ -31,7 +32,7 @@ const CardStatItem = (props: { name: string, value: string }) => {
 
 // Font Awesome Free 6.0.0-beta3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2021 Fonticons, Inc.
 const ChatButton = (props: { uid: number }) => {
-  const chat = () => { window.open(`https://www.luogu.com.cn/chat?uid=${props.uid}`); };
+  const chat = () => { window.open(chatWith(props.uid)); };
   const [mouseOn, setMouse] = useState(false);
   const mouseOnColor = mouseOn ? "rgb(0, 86, 179)" : "rgb(52, 152, 219)";
 
@@ -63,7 +64,7 @@ const updateFollow = (uid: number, setFollow: any, value: number, fanState: any)
   const target = (value & 1) ^ 1;
   $.ajax({
     type: "POST",
-    url: "https://www.luogu.com.cn/api/user/updateRelationShip",
+    url: UPDATE_FOLLOW,
     data: JSON.stringify({ relationship: target, uid: uid }),
     headers: {
       "x-csrf-token": consts.csrfToken,
@@ -131,7 +132,7 @@ const getBackgroundStyle = (url: string) => {
 };
 
 const getAvatarURL = (uid: number) => {
-  return uid < 0 ? bannedUserAvatar : `https://cdn.luogu.com.cn/upload/usericon/${uid}.png`;
+  return uid < 0 ? bannedUserAvatar : getAvatar(uid);
 };
 
 const getAvatarStyle = (uid: number): CSSProperties => {
