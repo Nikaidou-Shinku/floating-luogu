@@ -1,6 +1,6 @@
-import React, { CSSProperties, useCallback, useState } from "react";
-import { Card } from ".";
 import $ from "jquery";
+import React, { CSSProperties, useState } from "react";
+import { Card } from ".";
 
 const INLINE_STYLE: CSSProperties = {
   display: "inline"
@@ -17,7 +17,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
 
   const baseStyle: CSSProperties = {
     position: "absolute",
-    "zIndex": floatNumber,
+    zIndex: floatNumber,
     top: 0,
     left: 0
   };
