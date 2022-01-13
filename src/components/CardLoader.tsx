@@ -35,7 +35,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
 
 export const CardLoader = (props: { init: string, id: number }) => {
   const [isCardDisplay, setCard] = useState(false);
-  const [realCardStyle, setStyle] = useState(null);
+  const [realCardStyle, setStyle] = useState<CSSProperties>(null);
 
   let cardTimeout: NodeJS.Timer = null;
 
