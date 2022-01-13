@@ -26,16 +26,20 @@ const COLORS: ColorTable = {
   brown: "#996600"
 };
 
-export const LG_FG = (color: string) => {
-  const styleColor = color === "blue" ? "bluelight" : color;
-  return {
-    color: COLORS[styleColor as keyof ColorTable]
-  };
+export const LG_FG = (color: string): CSSProperties => {
+  let styleColor = color;
+  if (styleColor === "blue")
+    styleColor = "bluelight";
+  if (styleColor === "cheater")
+    styleColor = "brown";
+  return { color: COLORS[styleColor as keyof ColorTable] };
 };
 
-export const LG_BG = (color: string) => {
-  const styleColor = color === "blue" ? "bluelight" : color;
-  return {
-    backgroundColor: COLORS[styleColor as keyof ColorTable]
-  };
+export const LG_BG = (color: string): CSSProperties => {
+  let styleColor = color;
+  if (styleColor === "blue")
+    styleColor = "bluelight";
+  if (styleColor === "cheater")
+    styleColor = "brown";
+  return { backgroundColor: COLORS[styleColor as keyof ColorTable] };
 };
