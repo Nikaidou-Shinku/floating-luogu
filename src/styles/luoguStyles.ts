@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { ColorTable } from "../interfaces/types";
+import { ColorTable } from "../data/interfaces/types";
 
 export const defaultBackgroundURL = "https://cdn.luogu.org/images/bg/fe/DSCF0530-shrink.jpg";
 export const bannedUserAvatar = "https://cdn.luogu.com.cn/images/banned.png";

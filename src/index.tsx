@@ -1,6 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import { render } from "react-dom";
+import { userPageRegex } from "./data/constants";
 import { Hello, CardLoader } from "./components";
 
 const helloContainer = $(".lg-index-content");
@@ -22,10 +23,12 @@ const loadCard = (baseNode: Node) => {
     const href = $(element).attr("href");
     if (href === undefined)
       return false;
-    let res = href.match(/^\/user\/\d+$/);
-    if (res === null)
-      res = href.match(/^https:\/\/www.luogu.com.cn\/user\/\d+$/);
-    return res !== null;
+    let ok = false;
+    userPageRegex.forEach((item) => {
+      if (href.match(item) !== null)
+        ok = true;
+    });
+    return ok;
   }).each((_index, element) => {
     $(element).parent().attr("isCard", "true"); // set attr "isCard" to avoid multiple rendering
     const childrenList = $(element).parent().children();
@@ -41,13 +44,8 @@ const loadCard = (baseNode: Node) => {
   });
 };
 
-$(window).on("load", () => { loadCard(document); });
-
-const benbenNode = $("#feed")[0];
-if (benbenNode !== undefined) {
-  const observer = new MutationObserver((mutations, _observer) => {
-    const nodeList = mutations[0].addedNodes;
-    nodeList.forEach((node) => { loadCard(node); });
-  });
-  observer.observe(benbenNode, { childList: true });  
-}
+$(window).on("load", () => {
+  setInterval(() => {
+    loadCard(document);
+  }, 500);
+});

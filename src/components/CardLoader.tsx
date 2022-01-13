@@ -1,5 +1,6 @@
 import $ from "jquery";
 import React, { CSSProperties, useState } from "react";
+import { userPageRegex, userPageUrlIndex } from "../data/constants";
 import { Card } from ".";
 
 const INLINE_STYLE: CSSProperties = {
@@ -8,9 +9,12 @@ const INLINE_STYLE: CSSProperties = {
 
 const getUID = (raw: string): number => {
   const URL = $(raw).attr("href");
-  if (URL[0] === "/")
-    return Number(URL.substring(6));
-  return Number(URL.substring(30));
+  let uid = "-1";
+  userPageRegex.forEach((item, index) => {
+    if (URL.match(item) !== null)
+      uid = URL.substring(userPageUrlIndex[index]);
+  });
+  return Number(uid);
 };
 
 let floatNumber = 2000100;
