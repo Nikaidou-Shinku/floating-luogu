@@ -1,5 +1,8 @@
 import { CSSProperties } from "react";
-import { ColorTable } from "../interfaces/types";
+import { ColorTable } from "../data/interfaces/types";
+
+export const defaultBackgroundURL = "https://cdn.luogu.org/images/bg/fe/DSCF0530-shrink.jpg";
+export const bannedUserAvatar = "https://cdn.luogu.com.cn/images/banned.png";
 
 export const AM_BADGE_STYLE: CSSProperties = {
   display: "inline-block",
@@ -23,26 +26,29 @@ const COLORS: ColorTable = {
   green: "#5eb95e",
   bluelight: "#0e90d2",
   gray: "#bbb",
-  brown: "#996600"
+  brown: "#996600",
+  blue: "#3498db",
+  gold: "#f1c40f"
 };
 
-export const LG_FG = (color: string) => {
-  const styleColor = color === "blue" ? "bluelight" : color;
-  return {
-    color: COLORS[styleColor as keyof ColorTable]
-  };
+export const LG_FG = (color: string): CSSProperties => {
+  let styleColor = color;
+  if (styleColor === "blue")
+    styleColor = "bluelight";
+  if (styleColor === "cheater")
+    styleColor = "brown";
+  return { color: COLORS[styleColor as keyof ColorTable] };
 };
 
-export const LG_BG = (color: string) => {
-  const styleColor = color === "blue" ? "bluelight" : color;
-  return {
-    backgroundColor: COLORS[styleColor as keyof ColorTable]
-  };
+export const LG_BG = (color: string): CSSProperties => {
+  let styleColor = color;
+  if (styleColor === "blue")
+    styleColor = "bluelight";
+  if (styleColor === "cheater")
+    styleColor = "brown";
+  return { backgroundColor: COLORS[styleColor as keyof ColorTable] };
 };
 
 export const LG_FL = (color: string) => {
-  const styleColor = color === "blue" ? "bluelight" : color;
-  return {
-    fill: COLORS[styleColor as keyof ColorTable]
-  };
+  return { fill: COLORS[color as keyof ColorTable] };
 };

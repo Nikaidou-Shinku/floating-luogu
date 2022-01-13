@@ -1,5 +1,6 @@
 import $ from "jquery";
 import React, { CSSProperties, useState } from "react";
+import { userPageRegex, userPageUrlIndex } from "../data/constants";
 import { Card } from ".";
 
 const INLINE_STYLE: CSSProperties = {
@@ -7,7 +8,13 @@ const INLINE_STYLE: CSSProperties = {
 };
 
 const getUID = (raw: string): number => {
-  return Number($(raw).attr("href").substring(6));
+  const URL = $(raw).attr("href");
+  let uid = "-1";
+  userPageRegex.forEach((item, index) => {
+    if (URL.match(item) !== null)
+      uid = URL.substring(userPageUrlIndex[index]);
+  });
+  return Number(uid);
 };
 
 let floatNumber = 2000100;
@@ -35,7 +42,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
 
 export const CardLoader = (props: { init: string, id: number }) => {
   const [isCardDisplay, setCard] = useState(false);
-  const [realCardStyle, setStyle] = useState(null);
+  const [realCardStyle, setStyle] = useState<CSSProperties>(null);
 
   let cardTimeout: NodeJS.Timer = null;
 
