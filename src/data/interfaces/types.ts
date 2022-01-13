@@ -35,5 +35,7 @@ export interface ColorTable {
   green: string,
   bluelight: string,
   gray: string,
-  brown: string
+  brown: string,
+  blue: string,
+  gold: string
 }

@@ -26,7 +26,9 @@ const COLORS: ColorTable = {
   green: "#5eb95e",
   bluelight: "#0e90d2",
   gray: "#bbb",
-  brown: "#996600"
+  brown: "#996600",
+  blue: "#3498db",
+  gold: "#f1c40f"
 };
 
 export const LG_FG = (color: string): CSSProperties => {
@@ -48,10 +50,5 @@ export const LG_BG = (color: string): CSSProperties => {
 };
 
 export const LG_FL = (color: string) => {
-  let styleColor = color;
-  if (styleColor === "blue")
-    styleColor = "bluelight";
-  if (styleColor === "cheater")
-    styleColor = "brown";
-  return { fill: COLORS[styleColor as keyof ColorTable] };
+  return { fill: COLORS[color as keyof ColorTable] };
 };
