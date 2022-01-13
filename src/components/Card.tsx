@@ -27,5 +27,5 @@ export const Card = (props: { id: number }) => {
     if (userInfo.background === "")
       userInfo.background = defaultBackgroundURL;
   }
-  return getInfoOK ? <InfoCard info={userInfo} /> : <FailedCard />;
+  return getInfoOK ? <InfoCard {...userInfo} /> : <FailedCard />;
 };

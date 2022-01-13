@@ -69,8 +69,7 @@ const getBadge = (color: string, value: string) => {
   );
 };
 
-export const InfoCard = (props: { info: UserInfo }) => {
-  const userInfo = props.info;
+export const InfoCard = (userInfo: UserInfo) => {
   const userColor = userInfo.color.toLowerCase();
   const hasBadge = (userInfo.badge !== null) && (userInfo.badge !== "");
   const hasBlog = userInfo.blogAddress !== null;
