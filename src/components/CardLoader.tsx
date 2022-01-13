@@ -7,7 +7,10 @@ const INLINE_STYLE: CSSProperties = {
 };
 
 const getUID = (raw: string): number => {
-  return Number($(raw).attr("href").substring(6));
+  const URL = $(raw).attr("href");
+  if (URL[0] === "/")
+    return Number(URL.substring(6));
+  return Number(URL.substring(30));
 };
 
 let floatNumber = 2000100;

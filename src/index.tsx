@@ -22,7 +22,9 @@ const loadCard = (baseNode: Node) => {
     const href = $(element).attr("href");
     if (href === undefined)
       return false;
-    const res = href.match(/^\/user\/\d+$/);
+    let res = href.match(/^\/user\/\d+$/);
+    if (res === null)
+      res = href.match(/^https:\/\/www.luogu.com.cn\/user\/\d+$/);
     return res !== null;
   }).each((_index, element) => {
     $(element).parent().attr("isCard", "true"); // set attr "isCard" to avoid multiple rendering
