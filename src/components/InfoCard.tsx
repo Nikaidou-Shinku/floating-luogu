@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import { UserInfo } from "../data/interfaces/types";
-import { AM_BADGE_STYLE, AM_RADIUS_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
+import { BADGE_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
 import { consts } from "../data/constants";
 
@@ -80,14 +80,8 @@ const getBadge = (color: string, value: string) => {
   return (
     <span style={
       $CSS([
-        AM_BADGE_STYLE,
-        AM_RADIUS_STYLE,
-        LG_BG(color),
-        {
-          textAlign: "center",
-          boxSizing: "border-box",
-          verticalAlign: "0.25em"
-        }
+        BADGE_STYLE,
+        LG_BG(color)
       ])
     }>
       {value}
@@ -152,7 +146,6 @@ export const InfoCard = (userInfo: UserInfo) => {
               ])
             }>
               {userInfo.name}
-              &nbsp;
               {hasBadge && getBadge(userColor, userBadge)}
             </div>
             <div style={

@@ -15,7 +15,8 @@ export const CARD_STYLE: CSSProperties = {
   boxShadow: "0 0 5px 1px #999",
   background: "#fff",
   fontWeight: "bold",
-  textAlign: "center"
+  textAlign: "center",
+  lineHeight: "25.6px"
 };
 
 export const CARD_CONTAINER_STYLE: CSSProperties = {

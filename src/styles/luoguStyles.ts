@@ -4,20 +4,17 @@ import { ColorTable } from "../data/interfaces/types";
 export const defaultBackgroundURL = "https://cdn.luogu.org/images/bg/fe/DSCF0530-shrink.jpg";
 export const bannedUserAvatar = "https://cdn.luogu.com.cn/images/banned.png";
 
-export const AM_BADGE_STYLE: CSSProperties = {
-  display: "inline-block",
-  minWidth: "10px",
-  padding: ".25em .625em",
-  fontSize: "1.2rem",
-  fontWeight: 700,
+export const BADGE_STYLE: CSSProperties = {
   color: "#fff",
-  lineHeight: 1,
-  verticalAlign: "baseline",
-  whiteSpace: "nowrap",
-  backgroundColor: "#999"
+  display: "inline-block",
+  padding: "0 8px",
+  boxSizing: "border-box",
+  fontWeight: 400,
+  lineHeight: 1.5,
+  borderRadius: "2px",
+  fontSize: "14px",
+  marginLeft: "5px"
 };
-
-export const AM_RADIUS_STYLE: CSSProperties = { borderRadius: "2px" };
 
 const COLORS: ColorTable = {
   purple: "#8e44ad",
