@@ -39,3 +39,10 @@ export const LG_BG = (color: string) => {
     backgroundColor: COLORS[styleColor as keyof ColorTable]
   };
 };
+
+export const LG_FL = (color: string) => {
+  const styleColor = color === "blue" ? "bluelight" : color;
+  return {
+    fill: COLORS[styleColor as keyof ColorTable]
+  };
+};
