@@ -16,6 +16,7 @@ export const CARD_STYLE: CSSProperties = {
   background: "#fff",
   fontWeight: "bold",
   textAlign: "center",
+  textSizeAdjust: "100%",
   lineHeight: "25.6px"
 };
 
