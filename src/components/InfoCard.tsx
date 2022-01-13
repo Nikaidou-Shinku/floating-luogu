@@ -107,13 +107,13 @@ const getCCFLevelColor = (value: number) : string => {
 const CCFLevelBadge = (props: {value: number}) => {
   return (
     <div style={{
+      position: "absolute",
       background: "#fff", 
+      borderRadius: "100%",
       width: 20,
       height: 20,
-      position: "absolute",
       top: 27,
-      left: 10,
-      borderRadius: "100%"
+      left: 10
     }}>
       <svg viewBox="0 0 512 512" style={LG_FL(getCCFLevelColor(props.value))}>
         <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM371.8 211.8l-128 128C238.3 345.3 231.2 348 224 348s-14.34-2.719-19.81-8.188l-64-64c-10.91-10.94-10.91-28.69 0-39.63c10.94-10.94 28.69-10.94 39.63 0L224 280.4l108.2-108.2c10.94-10.94 28.69-10.94 39.63 0C382.7 183.1 382.7 200.9 371.8 211.8z" />
@@ -170,8 +170,8 @@ export const InfoCard = (userInfo: UserInfo) => {
           <CardStatItem name="咕值排名" value={userInfo.ranking === null ? "-" : String(userInfo.ranking)} />
         </div>
         {hasRelationship && <div style={$CSS([STAT_STYLE, {marginBottom: 10}])}>
-          <CardBottom name="私信" svgType={0}></CardBottom>
-          <CardBottom name="关注" svgType={1}></CardBottom>
+          <CardBottom name="私信" svgType={0} />
+          <CardBottom name="关注" svgType={1} />
         </div>}
       </div>
     </div>
