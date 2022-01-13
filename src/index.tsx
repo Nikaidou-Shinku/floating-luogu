@@ -3,20 +3,21 @@ import { Hello, CardLoader } from "./components";
 import { render } from "react-dom";
 import $ from "jquery";
 
-const container = $(".lg-index-content");
-if (container.length > 0) {
-  container.prepend(`<div class="am-g" id="user-card-hello" />`);
+const helloContainer = $(".lg-index-content");
+if (helloContainer.length > 0) {
+  helloContainer.prepend(`<div class="am-g" id="user-card-hello" />`);
   render(<Hello />, document.getElementById("user-card-hello"));
 }
-const cardContainer = $("<div style='position: absolute; top: 0; left: 0'></div>");
+
+const cardContainer = $(`<div style="position: absolute; top: 0; left: 0" />`);
 $("body").append(cardContainer);
 
-let cardID = 0;
+let cardId = 0;
 
 const loadCard = (baseNode: Node) => {
   $(baseNode).find("a").filter((_index, element) => {
     const parent = $(element).parent();
-    if (parent.attr("isCard") !== undefined)
+    if (parent.attr("isCard") !== undefined) // test attr "isCard" here
       return false;
     const href = $(element).attr("href");
     if (href === undefined)
@@ -24,14 +25,15 @@ const loadCard = (baseNode: Node) => {
     const res = href.match(/^\/user\/\d+$/);
     return res !== null;
   }).each((_index, element) => {
-    $(element).parent().attr("isCard", "true");
+    $(element).parent().attr("isCard", "true"); // set attr "isCard" to avoid multiple rendering
     const childrenList = $(element).parent().children();
     childrenList.each((_index, element_now) => {
       if (element_now === element) {
-        $(element_now).attr("cardID", ++ cardID);
-        const container = $(`<div style="display: inline;" cardid=${cardID}/>`);
+        ++ cardId;
+        $(element_now).attr("cardid", cardId);
+        const container = $(`<div cardid=${cardId} />`);
         cardContainer.append(container);
-        render(<CardLoader init={element_now.outerHTML} cardid={cardID}/>, container[0]);
+        render(<CardLoader init={element_now.outerHTML} id={cardId}/>, container[0]);
       }
     });
   });

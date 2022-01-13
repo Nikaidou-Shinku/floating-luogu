@@ -1,8 +1,6 @@
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useCallback, useState } from "react";
 import { Card } from ".";
 import $ from "jquery";
-
-let floatNumber = 2000100;
 
 const INLINE_STYLE: CSSProperties = {
   display: "inline"
@@ -12,17 +10,33 @@ const getUID = (raw: string): number => {
   return Number($(raw).attr("href").substring(6));
 };
 
-export const CardLoader = (props: { init: string, cardid: number }) => {
+let floatNumber = 2000100;
+
+const getCardStyle = (pos: { x: number, y: number }) => {
   floatNumber += 100;
-  const cardStyle: CSSProperties = {
+
+  const baseStyle: CSSProperties = {
     position: "absolute",
     "zIndex": floatNumber,
-    top: 100,
-    left: 100
+    top: 0,
+    left: 0
   };
 
+  const MAX_WIDTH = document.body.clientWidth;
+  const deltaRight = pos.x + 169 - MAX_WIDTH;
+  const deltaLeft = 218 - pos.x;
+  baseStyle.top = pos.y + 20;
+  baseStyle.left = pos.x - 150;
+  if (deltaRight > 0) baseStyle.left -= deltaRight;
+  if (deltaLeft > 0) baseStyle.left += deltaLeft;
+
+  return baseStyle;
+};
+
+export const CardLoader = (props: { init: string, id: number }) => {
   const [isCardDisplay, setCard] = useState(false);
-  const [realCardStyle, setStyle] = useState(cardStyle);
+  const [realCardStyle, setStyle] = useState(null);
+
   let cardTimeout: NodeJS.Timer = null;
 
   const mouseEnter = (e: any) => {
@@ -31,12 +45,7 @@ export const CardLoader = (props: { init: string, cardid: number }) => {
       cardTimeout = null;
     } else {
       cardTimeout = setTimeout(() => {
-        cardStyle.top = e.pageY + 20;
-        cardStyle.left = e.pageX - 150;
-        const delta = e.clientX + 193 - document.body.clientWidth;
-        const delta2 = 200 - e.clientX;
-        if (delta > 0) cardStyle.left -= delta;
-        if (delta2 > 0) cardStyle.left += delta2;
+        const cardStyle = getCardStyle({ x: e.pageX, y: e.pageY });
         setStyle(cardStyle);
         setCard(true);
         cardTimeout = null;
@@ -56,12 +65,14 @@ export const CardLoader = (props: { init: string, cardid: number }) => {
     }
   };
 
+  $(`[cardid=${props.id}]`)
+    .off("mouseenter").on("mouseenter", mouseEnter)
+    .off("mouseleave").on("mouseleave", mouseLeave);
+
   const uid = getUID(props.init);
-  $(`[cardid=${props.cardid}]`).off("mouseenter").off("mouseleave")
-    .on("mouseenter", mouseEnter).on("mouseleave", mouseLeave);
-  // onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}
+  
   return (
-    <div style={INLINE_STYLE} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
+    <div style={INLINE_STYLE}>
       {isCardDisplay && <div style={realCardStyle}><Card id={uid} /></div>}
     </div>
   );
