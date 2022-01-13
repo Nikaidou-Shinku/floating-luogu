@@ -71,7 +71,8 @@ const getBadge = (color: string, value: string) => {
 
 export const InfoCard = (userInfo: UserInfo) => {
   const userColor = userInfo.color.toLowerCase();
-  const hasBadge = (userInfo.badge !== null) && (userInfo.badge !== "");
+  const userBadge = userColor === "cheater" ? "作弊者" : userInfo.badge;
+  const hasBadge = (userBadge !== null) && (userBadge !== "");
   const hasBlog = userInfo.blogAddress !== null;
   const hasSlogan = userInfo.slogan !== "";
   return (
@@ -94,7 +95,7 @@ export const InfoCard = (userInfo: UserInfo) => {
             }>
               {userInfo.name}
               &nbsp;
-              {hasBadge && getBadge(userColor, userInfo.badge)}
+              {hasBadge && getBadge(userColor, userBadge)}
             </div>
             <div style={
               $CSS([
