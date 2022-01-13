@@ -4,7 +4,21 @@ English | [中文](./docs/README_zh.md)
 
 A plugin to decorate Luogu with exquisite user card.
 
-![](./docs/images/pic1.png)
+![discuss](./docs/images/pic1.png)
+
+In discussion pages...
+
+![solution](./docs/images/pic2.png)
+
+In solution pages...
+
+![blog](./docs/images/pic3.png)
+
+In blog pages...
+
+![problem](./docs/images/pic4.png)
+
+Even in problem pages!
 
 ## Quickstart
 
