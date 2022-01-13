@@ -1,7 +1,7 @@
 import $ from "jquery";
 import React from "react";
 import { render } from "react-dom";
-import { userPageRegex } from "./data/constants";
+import { userPageRegex, consts } from "./data/constants";
 import { Hello, CardLoader } from "./components";
 
 const helloContainer = $(".lg-index-content");
@@ -44,7 +44,22 @@ const loadCard = (baseNode: Node) => {
   });
 };
 
+const getSelf = () => {
+  $.ajax({
+    async: false,
+    type: "GET",
+    url: `https://www.luogu.com.cn/user/3`,
+    headers: { "x-luogu-type": "content-only" },
+    success: (res) => {
+      const tmp = res.currentUser;
+      if (tmp !== undefined)
+        consts.currentUID = tmp.uid;
+    }
+  });
+}
+
 $(window).on("load", () => {
+  getSelf();
   setInterval(() => {
     loadCard(document);
   }, 500);

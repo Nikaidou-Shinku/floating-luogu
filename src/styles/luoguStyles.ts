@@ -46,3 +46,12 @@ export const LG_BG = (color: string): CSSProperties => {
     styleColor = "brown";
   return { backgroundColor: COLORS[styleColor as keyof ColorTable] };
 };
+
+export const LG_FL = (color: string) => {
+  let styleColor = color;
+  if (styleColor === "blue")
+    styleColor = "bluelight";
+  if (styleColor === "cheater")
+    styleColor = "brown";
+  return { fill: COLORS[styleColor as keyof ColorTable] };
+};

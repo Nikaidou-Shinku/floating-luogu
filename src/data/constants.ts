@@ -5,3 +5,7 @@ export const userPageRegex = [
 ];
 
 export const userPageUrlIndex = [ 6, 30, 40 ];
+
+export module consts {
+  export let currentUID: number = -1;
+}
