@@ -7,7 +7,7 @@ import { consts } from "../data/constants";
 // I put these CSS here just for temporary treatment
 // I will dispose of them in the near future :)
 const STAT_CONTAINER_STYLE = { flex: 1, margin: 10 };
-const BLOG_STYLE = { fontSize: 12, margin: "0.5em 1em 0em 1em", borderLeft: "5px solid #d0d0d0", background: "#e7e7e7", padding: "5px" };
+const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -5, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px" };
 const SLOGAN_STYLE = { fontSize: 14, margin: "0.25em 1.5em" };
 const STAT_STYLE: CSSProperties = { display: "flex", flexDirection: "row", width: "100%" };
 const STAT_BOTTOM_STYLE: CSSProperties = { fontSize: 16, height: 26, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center" };
@@ -42,7 +42,7 @@ const CardBottom = (props: { name: string, svgType: number }) => {
         height: 14,
         verticalAlign: "middle"
       }}>{cardButtomIconLust[props.svgType]}</svg>
-      &nbsp;
+      &nbsp;&nbsp;
       {props.name}
     </div>
   );
@@ -145,7 +145,7 @@ export const InfoCard = (userInfo: UserInfo) => {
                 LG_FG(userColor),
                 {
                   fontWeight: "bold",
-                  fontSize: "1.25em"
+                  fontSize: "1.1em"
                 }
               ])
             }>
@@ -156,12 +156,11 @@ export const InfoCard = (userInfo: UserInfo) => {
             <div style={
               $CSS([
                 LG_FG("gray"),
-                { fontSize: 14 }
+                { fontSize: 14, position: "relative" }
               ])
-            }>#{userInfo.uid}</div>
+            }>#{userInfo.uid}{hasBlog && <a style={BLOG_STYLE} href={userInfo.blogAddress}><svg style={{width: 21, height: 21}} viewBox="0 0 512 512"><path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634-5.214-80.05-69.243-143.92-149.123-149.123-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425 110.546 5.974 198.997 94.536 204.964 204.964.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432 167.83 6.025 302.21 141.191 308.205 308.205.232 6.449-4.978 11.787-11.432 11.787z"/></svg>&nbsp;个人博客</a>}</div>
           </div>
         </div>
-        {hasBlog && <a style={BLOG_STYLE} href={userInfo.blogAddress}>{userInfo.blogAddress}</a>}
         {hasSlogan && <div style={SLOGAN_STYLE}>{userInfo.slogan}</div>}
         <div style={STAT_STYLE}>
           <CardStatItem name="关注" value={String(userInfo.followingCount)} />

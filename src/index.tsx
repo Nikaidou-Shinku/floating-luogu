@@ -58,9 +58,7 @@ const getSelf = () => {
   });
 }
 
-$(window).on("load", () => {
-  getSelf();
-  setInterval(() => {
-    loadCard(document);
-  }, 500);
-});
+getSelf();
+setInterval(() => {
+  loadCard(document);
+}, 500);
