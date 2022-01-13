@@ -1,6 +1,9 @@
 import { CSSProperties } from "react";
 import { ColorTable } from "../interfaces/types";
 
+export const defaultBackgroundURL = "https://cdn.luogu.org/images/bg/fe/DSCF0530-shrink.jpg";
+export const bannedUserAvatar = "https://cdn.luogu.com.cn/images/banned.png";
+
 export const AM_BADGE_STYLE: CSSProperties = {
   display: "inline-block",
   minWidth: "10px",

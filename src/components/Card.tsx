@@ -3,8 +3,6 @@ import React from "react";
 import { UserInfo } from "../interfaces/types";
 import { InfoCard, FailedCard } from ".";
 
-const defaultBackgroundURL = "https://cdn.luogu.org/images/bg/fe/DSCF0530-shrink.jpg";
-
 const getInfo = (id: number): UserInfo => {
   let ans: UserInfo;
   $.ajax({
@@ -23,9 +21,6 @@ export const Card = (props: { id: number }) => {
   if (userInfo === undefined) {
     console.error(`Get user ${props.id}'s info failed!`);
     getInfoOK = false;
-  } else {
-    if (userInfo.background === "")
-      userInfo.background = defaultBackgroundURL;
   }
   return getInfoOK ? <InfoCard {...userInfo} /> : <FailedCard />;
 };

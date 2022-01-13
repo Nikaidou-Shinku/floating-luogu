@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import { UserInfo } from "../interfaces/types";
-import { AM_BADGE_STYLE, AM_RADIUS_STYLE, LG_BG, LG_FG } from "../styles/luoguStyles";
+import { AM_BADGE_STYLE, AM_RADIUS_STYLE, LG_BG, LG_FG, defaultBackgroundURL, bannedUserAvatar } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
 
 // I put these CSS here just for temporary treatment
@@ -35,11 +35,15 @@ const getBackgroundStyle = (url: string) => {
   };
 };
 
+const getAvatarURL = (uid: number) => {
+  return uid < 0 ? bannedUserAvatar : `https://cdn.luogu.com.cn/upload/usericon/${uid}.png`;
+};
+
 const getAvatarStyle = (uid: number): CSSProperties => {
   return {
     backgroundColor: "#fff",
     boxShadow: "0 0 5px 1px #999",
-    background: `url(https://cdn.luogu.com.cn/upload/usericon/${uid}.png) no-repeat`,
+    background: `url(${getAvatarURL(uid)}) no-repeat`,
     backgroundSize: "cover",
     width: 60,
     height: 60,
@@ -70,6 +74,8 @@ const getBadge = (color: string, value: string) => {
 };
 
 export const InfoCard = (userInfo: UserInfo) => {
+  if (userInfo.background === "")
+    userInfo.background = defaultBackgroundURL;
   const userColor = userInfo.color.toLowerCase();
   const userBadge = userColor === "cheater" ? "作弊者" : userInfo.badge;
   const hasBadge = (userBadge !== null) && (userBadge !== "");
@@ -81,7 +87,7 @@ export const InfoCard = (userInfo: UserInfo) => {
       <div style={CARD_CONTAINER_STYLE}>
         <div style={CARD_HEADER_STYLE}>
           <div style={{width: 80}}>
-            <div style={getAvatarStyle(userInfo.uid)} />
+            <div style={getAvatarStyle(userInfo.isBanned ? -1 : userInfo.uid)} />
           </div>
           <div style={{flex: 1}}>
             <div style={
