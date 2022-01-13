@@ -1,8 +1,9 @@
+import $, { data } from "jquery";
 import React, { CSSProperties, useState } from "react";
 import { UserInfo } from "../data/interfaces/types";
+import { consts } from "../data/constants";
 import { BADGE_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
-import { consts } from "../data/constants";
 
 // I put these CSS here just for temporary treatment
 // I will dispose of them in the near future :)
@@ -32,7 +33,7 @@ const CardStatItem = (props: { name: string, value: string }) => {
 const ChatButton = (props: { uid: number }) => {
   const chat = () => { window.open(`https://www.luogu.com.cn/chat?uid=${props.uid}`); };
   const [mouseOn, setMouse] = useState(false);
-  const mouseOnColor = mouseOn ? "#3498db" : "#bbb";
+  const mouseOnColor = mouseOn ? "rgb(0, 86, 179)" : "rgb(52, 152, 219)";
 
   return (
     <div onClick={chat}
@@ -56,21 +57,66 @@ const ChatButton = (props: { uid: number }) => {
       私信
     </div>
   );
-}
+};
+
+const updateFollow = (uid: number, setFollow: any, value: number, fanState: any) => {
+  const target = (value & 1) ^ 1;
+  $.ajax({
+    type: "POST",
+    url: "https://www.luogu.com.cn/api/user/updateRelationShip",
+    data: JSON.stringify({ relationship: target, uid: uid }),
+    headers: {
+      "x-csrf-token": consts.csrfToken,
+      "content-type": "application/json"
+    },
+    success: (res) => {
+      if (res._empty) {
+        setFollow(value ^ 1);
+        const fanNumber = fanState[0] + (target ? 1 : -1);
+        fanState[1](fanNumber);
+      } else console.error(`Update user ${uid}'s follow state failed!`);
+    }
+  });
+};
 
 // Font Awesome Free 6.0.0-beta3 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2021 Fonticons, Inc.
-const FollowButton = () => {
+const FollowButton = (props: { uid: number, state: number, changeState: any, fanState: any }) => {
+  const [mouseOn, setMouse] = useState(false);
+  const [followState, setFollow] = useState(props.state);
+  const followColor = (followState & 1) === 0 ? mouseOn ? "rgb(0, 86, 179)" : "rgb(52, 152, 219)" : "#bbb";
+  const getFollowText = () => {
+    if ((followState & 1) === 0)
+      return "+ 关注";
+    if (mouseOn)
+      return "取消关注";
+    if ((followState & 2) === 2)
+      return "已互关";
+    return "已关注";
+  };
+
   return (
-    <div style={STAT_BOTTOM_STYLE}>
-      <svg viewBox="0 0 512 512" style={{
-        width: 14,
-        height: 14,
-        verticalAlign: "middle"
-      }}>
-        <path d="M472.1 270.5l-193.1 199.7c-12.64 13.07-33.27 13.08-45.91 .0107l-193.2-199.7C-16.21 212.5-13.1 116.7 49.04 62.86C103.3 15.88 186.4 24.42 236.3 75.98l19.7 20.27l19.7-20.27c49.95-51.56 132.1-60.1 187.3-13.12C525.1 116.6 528.2 212.5 472.1 270.5z" />
-      </svg>
+    <div onClick={() => { updateFollow(props.uid, setFollow, followState, props.fanState); }}
+    onMouseEnter={() => { setMouse(true); }}
+    onMouseLeave={() => { setMouse(false); }}
+    style={
+      $CSS([
+        STAT_BOTTOM_STYLE,
+        { color: followColor }
+      ])
+    }>
+      {
+        (followState & 1) !== 0 &&
+        <svg viewBox="0 0 512 512" style={{
+          width: 14,
+          height: 14,
+          verticalAlign: "middle",
+          fill: followColor
+        }}>
+          <path d="M472.1 270.5l-193.1 199.7c-12.64 13.07-33.27 13.08-45.91 .0107l-193.2-199.7C-16.21 212.5-13.1 116.7 49.04 62.86C103.3 15.88 186.4 24.42 236.3 75.98l19.7 20.27l19.7-20.27c49.95-51.56 132.1-60.1 187.3-13.12C525.1 116.6 528.2 212.5 472.1 270.5z" />
+        </svg>
+      }
       &nbsp;
-      关注
+      {getFollowText()}
     </div>
   );
 };
@@ -164,7 +210,14 @@ export const InfoCard = (userInfo: UserInfo) => {
   const hasBlog = userInfo.blogAddress !== null;
   const hasSlogan = userInfo.slogan !== "";
   const hasRelationship = cUID > 0 && userInfo.uid !== cUID;
-  // const [followState, setFollow] = useState(userInfo.followerCount);
+
+  // followState:
+  //   - 0: we did not know each other
+  //   - 1: i followed him but he did not follow me
+  //   - 2: he followed me but i did not follow him
+  //   - 3: we followed each other
+  const [fanNumber, setFan] = useState(userInfo.followerCount);
+  const [followState, setFollow] = useState(userInfo.reverseUserRelationship * 2 + userInfo.userRelationship);
   return (
     <div style={CARD_STYLE}>
       <div style={getBackgroundStyle(userInfo.background)} />
@@ -201,13 +254,13 @@ export const InfoCard = (userInfo: UserInfo) => {
         {hasSlogan && <div style={SLOGAN_STYLE}>{userInfo.slogan}</div>}
         <div style={STAT_STYLE}>
           <CardStatItem name="关注" value={String(userInfo.followingCount)} />
-          <CardStatItem name="粉丝" value={String(userInfo.followerCount)} />
+          <CardStatItem name="粉丝" value={String(fanNumber)} />
           <CardStatItem name="通过题数" value={userInfo.passedProblemCount === null ? "-" : String(userInfo.passedProblemCount)} />
           <CardStatItem name="咕值排名" value={userInfo.ranking === null ? "-" : String(userInfo.ranking)} />
         </div>
         {hasRelationship && <div style={$CSS([STAT_STYLE, {marginBottom: 10}])}>
           <ChatButton uid={userInfo.uid} />
-          <FollowButton />
+          <FollowButton uid={userInfo.uid} state={followState} changeState={setFollow} fanState={[fanNumber, setFan]} />
         </div>}
       </div>
     </div>

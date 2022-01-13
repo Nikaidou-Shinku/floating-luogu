@@ -8,4 +8,5 @@ export const userPageUrlIndex = [ 6, 30, 40 ];
 
 export module consts {
   export let currentUID: number = -1;
+  export let csrfToken: string = "";
 }

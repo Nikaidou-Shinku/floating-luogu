@@ -45,6 +45,7 @@ const loadCard = (baseNode: Node) => {
 };
 
 const getSelf = () => {
+  consts.csrfToken = $(`meta[name="csrf-token"]`).attr("content");
   $.ajax({
     async: false,
     type: "GET",
