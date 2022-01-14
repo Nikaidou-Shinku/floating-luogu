@@ -28,14 +28,14 @@ const loadCard = (baseNode: Node) => {
     }
     if (Number(markUID) === uid)
       return false;
-      $(element).attr("uid", uid); // set attr "uid" to avoid multiple rendering
+    $(element).attr("uid", uid); // set attr "uid" to avoid multiple rendering
     return true;
   }).each((_index, element) => {
-    const uid = Number($(element).attr("uid"));
     ++ cardId;
     $(element).attr("cardid", cardId);
     const container = $(`<div cardid=${cardId} />`);
     cardContainer.append(container);
+    const uid = Number($(element).attr("uid"));
     render(<CardLoader uid={uid} id={cardId}/>, container[0]);
   });
 };
