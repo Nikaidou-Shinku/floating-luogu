@@ -2,7 +2,7 @@ import $ from "jquery";
 import React, { CSSProperties, useState } from "react";
 import { UserInfo } from "../data/interfaces/types";
 import { consts } from "../data/constants";
-import { chatWith, getAvatar, UPDATE_FOLLOW } from "../data/LuoguAPI";
+import { chatWith, getAvatar, getFansPage, getFollowPage, getPracticePage, UPDATE_FOLLOW } from "../data/LuoguAPI";
 import { BADGE_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
 
@@ -293,9 +293,9 @@ export const InfoCard = (userInfo: UserInfo) => {
         </div>
         {hasSlogan && <div style={SLOGAN_STYLE}>{userInfo.slogan}</div>}
         <div style={STAT_STYLE}>
-          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#following.following`} name="关注" value={String(userInfo.followingCount)} />
-          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#following.follower`} name="粉丝" value={String(fanNumber)} />
-          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#practice`} name="通过题数" value={userInfo.passedProblemCount === null ? "-" : String(userInfo.passedProblemCount)} />
+          <CardStatItem link={getFollowPage(userInfo.uid)} name="关注" value={String(userInfo.followingCount)} />
+          <CardStatItem link={getFansPage(userInfo.uid)} name="粉丝" value={String(fanNumber)} />
+          <CardStatItem link={getPracticePage(userInfo.uid)} name="通过题数" value={userInfo.passedProblemCount === null ? "-" : String(userInfo.passedProblemCount)} />
           <CardStatItem name="咕值排名" value={userInfo.ranking === null ? "-" : String(userInfo.ranking)} />
         </div>
         {
