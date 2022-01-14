@@ -21,18 +21,24 @@ const getStatItemStyle = (fontSize: number): CSSProperties => {
   };
 };
 
-const CardStatItem = (props: { name: string, value: string, link: string }) => {
+const CardStatItem = (props: { name: string, value: string, link?: string }) => {
   const [mouseOn, setMouse] = useState(false);
   const mouseOnColor = mouseOn ? "#777" : "black";
+  const canClick = (props.value !== "-") && (props.link !== undefined);
+
   return (
-    <div style={STAT_CONTAINER_STYLE}>
+    <div onClick={canClick ? () => { window.open(props.link); } : undefined}
+    onMouseEnter={() => { setMouse(true); }}
+    onMouseLeave={() => { setMouse(false); }}
+    style={
+      $CSS([
+        STAT_CONTAINER_STYLE,
+        canClick ? { color: mouseOnColor, transition: "0.2s", cursor: "pointer" } : {}
+      ])
+    }>
       <div style={getStatItemStyle(12)}>{props.name}</div>
       <div style={getStatItemStyle(16)}>
-      {(props.value !== "-" && props.link !== "")
-        ? <a target="_blank" href={props.link} style={{ color: mouseOnColor, transition: "0.2s" }}
-          onMouseEnter={() => { setMouse(true); }}
-          onMouseLeave={() => { setMouse(false); }}>{props.value}</a>
-        : <span>{props.value}</span>}
+        <span>{props.value}</span>
       </div>
     </div>
   );
@@ -287,11 +293,10 @@ export const InfoCard = (userInfo: UserInfo) => {
         </div>
         {hasSlogan && <div style={SLOGAN_STYLE}>{userInfo.slogan}</div>}
         <div style={STAT_STYLE}>
-          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#following.follower`} name="关注" value={String(userInfo.followingCount)} />
-          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#following.following`} name="粉丝" value={String(fanNumber)} />
+          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#following.following`} name="关注" value={String(userInfo.followingCount)} />
+          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#following.follower`} name="粉丝" value={String(fanNumber)} />
           <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#practice`} name="通过题数" value={userInfo.passedProblemCount === null ? "-" : String(userInfo.passedProblemCount)} />
-          <CardStatItem link={userInfo.ranking == null || userInfo.ranking > 500
-            ? "" : `https://www.luogu.com.cn/ranking?page=${Math.floor((userInfo.ranking + 49) / 50)}`} name="咕值排名" value={userInfo.ranking === null ? "-" : String(userInfo.ranking)} />
+          <CardStatItem name="咕值排名" value={userInfo.ranking === null ? "-" : String(userInfo.ranking)} />
         </div>
         {
           hasRelationship &&
