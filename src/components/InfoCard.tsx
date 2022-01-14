@@ -21,11 +21,19 @@ const getStatItemStyle = (fontSize: number): CSSProperties => {
   };
 };
 
-const CardStatItem = (props: { name: string, value: string }) => {
+const CardStatItem = (props: { name: string, value: string, link: string }) => {
+  const [mouseOn, setMouse] = useState(false);
+  const mouseOnColor = mouseOn ? "#777" : "black";
   return (
     <div style={STAT_CONTAINER_STYLE}>
       <div style={getStatItemStyle(12)}>{props.name}</div>
-      <div style={getStatItemStyle(16)}>{props.value}</div>
+      <div style={getStatItemStyle(16)}>
+      {(props.value !== "-" && props.link !== "")
+        ? <a target="_blank" href={props.link} style={{ color: mouseOnColor, transition: "0.2s" }}
+          onMouseEnter={() => { setMouse(true); }}
+          onMouseLeave={() => { setMouse(false); }}>{props.value}</a>
+        : <span>{props.value}</span>}
+      </div>
     </div>
   );
 };
@@ -115,16 +123,24 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
         }}>
           <path d="M472.1 270.5l-193.1 199.7c-12.64 13.07-33.27 13.08-45.91 .0107l-193.2-199.7C-16.21 212.5-13.1 116.7 49.04 62.86C103.3 15.88 186.4 24.42 236.3 75.98l19.7 20.27l19.7-20.27c49.95-51.56 132.1-60.1 187.3-13.12C525.1 116.6 528.2 212.5 472.1 270.5z" />
         </svg> :
+        ((followState & 2) !== 0 ? 
         <svg viewBox="0 0 512 512" style={{
           width: 14,
           height: 14,
           verticalAlign: "middle",
           fill: followColor
         }}>
+          <path xmlns="http://www.w3.org/2000/svg" d="M480 128c0 8.188-3.125 16.38-9.375 22.62l-256 256C208.4 412.9 200.2 416 192 416s-16.38-3.125-22.62-9.375l-128-128C35.13 272.4 32 264.2 32 256c0-18.28 14.95-32 32-32c8.188 0 16.38 3.125 22.62 9.375L192 338.8l233.4-233.4C431.6 99.13 439.8 96 448 96C465.1 96 480 109.7 480 128z"/>
+        </svg> : <svg viewBox="0 0 512 512" style={{
+          width: 14,
+          height: 14,
+          verticalAlign: "middle",
+          fill: followColor
+        }}>
           <path xmlns="http://www.w3.org/2000/svg" d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/>
-        </svg>
+        </svg>)
       }
-      &nbsp;
+      &nbsp;&nbsp;
       {getFollowText()}
     </div>
   );
@@ -242,7 +258,8 @@ export const InfoCard = (userInfo: UserInfo) => {
                 LG_FG(userColor),
                 {
                   fontWeight: "bold",
-                  fontSize: "1.1em"
+                  fontSize: "1em",
+                  marginTop: 3
                 }
               ])
             }>
@@ -265,10 +282,11 @@ export const InfoCard = (userInfo: UserInfo) => {
         </div>
         {hasSlogan && <div style={SLOGAN_STYLE}>{userInfo.slogan}</div>}
         <div style={STAT_STYLE}>
-          <CardStatItem name="关注" value={String(userInfo.followingCount)} />
-          <CardStatItem name="粉丝" value={String(fanNumber)} />
-          <CardStatItem name="通过题数" value={userInfo.passedProblemCount === null ? "-" : String(userInfo.passedProblemCount)} />
-          <CardStatItem name="咕值排名" value={userInfo.ranking === null ? "-" : String(userInfo.ranking)} />
+          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#following.follower`} name="关注" value={String(userInfo.followingCount)} />
+          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#following.following`} name="粉丝" value={String(fanNumber)} />
+          <CardStatItem link={`https://www.luogu.com.cn/user/${userInfo.uid}#practice`} name="通过题数" value={userInfo.passedProblemCount === null ? "-" : String(userInfo.passedProblemCount)} />
+          <CardStatItem link={userInfo.ranking == null || userInfo.ranking > 500
+            ? "" : `https://www.luogu.com.cn/ranking?page=${Math.floor((userInfo.ranking + 49) / 50)}`} name="咕值排名" value={userInfo.ranking === null ? "-" : String(userInfo.ranking)} />
         </div>
         {
           hasRelationship &&
