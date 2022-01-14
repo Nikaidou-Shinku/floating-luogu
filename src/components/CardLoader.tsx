@@ -1,20 +1,9 @@
 import $ from "jquery";
 import React, { CSSProperties, useState } from "react";
-import { userPageRegex, userPageUrlIndex } from "../data/constants";
 import { Card } from ".";
 
 const INLINE_STYLE: CSSProperties = {
   display: "inline"
-};
-
-const getUID = (raw: string): number => {
-  const URL = $(raw).attr("href");
-  let uid = "-1";
-  userPageRegex.forEach((item, index) => {
-    if (URL.match(item) !== null)
-      uid = URL.substring(userPageUrlIndex[index]);
-  });
-  return Number(uid);
 };
 
 let floatNumber = 2000100;
@@ -40,7 +29,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
   return baseStyle;
 };
 
-export const CardLoader = (props: { init: string, id: number }) => {
+export const CardLoader = (props: { uid: number, id: number }) => {
   const [isCardDisplay, setCard] = useState(false);
   const [realCardStyle, setStyle] = useState<CSSProperties>(null);
 
@@ -76,7 +65,7 @@ export const CardLoader = (props: { init: string, id: number }) => {
     .off("mouseenter").on("mouseenter", mouseEnter)
     .off("mouseleave").on("mouseleave", mouseLeave);
 
-  const uid = getUID(props.init);
+  const uid = props.uid;
   
   return (
     <div style={INLINE_STYLE}>
