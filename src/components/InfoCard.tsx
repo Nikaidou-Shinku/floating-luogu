@@ -146,9 +146,8 @@ const getAvatarURL = (uid: number) => {
 
 const getAvatarStyle = (uid: number): CSSProperties => {
   return {
-    backgroundColor: "#fff",
     boxShadow: "0 0 5px 1px #999",
-    background: `url(${getAvatarURL(uid)}) no-repeat`,
+    background: `#fff url(${getAvatarURL(uid)}) no-repeat`,
     backgroundSize: "cover",
     width: 60,
     height: 60,
