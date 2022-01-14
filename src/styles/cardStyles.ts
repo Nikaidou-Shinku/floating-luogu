@@ -14,6 +14,7 @@ export const CARD_STYLE: CSSProperties = {
   flexDirection: "column",
   boxShadow: "0 0 5px 1px #999",
   background: "#fff",
+  fontFamily: `-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", "Noto Sans", "Noto Sans CJK SC", "Noto Sans CJK", "Source Han Sans", "PingFang SC", "Segoe UI", "Microsoft YaHei", sans-serif`,
   fontWeight: "bold",
   textAlign: "center",
   textSizeAdjust: "100%",

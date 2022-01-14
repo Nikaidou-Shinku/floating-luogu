@@ -10,7 +10,7 @@ import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../st
 // I will dispose of them in the near future :)
 const STAT_CONTAINER_STYLE = { flex: 1, margin: 10 };
 const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -5, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px" };
-const SLOGAN_STYLE: CSSProperties = { fontSize: 14, margin: "0.25em 1.5em", wordBreak: "break-all" };
+const SLOGAN_STYLE: CSSProperties = { fontSize: 14, margin: "0.25em 1.5em", wordBreak: "break-all", fontWeight: "normal" };
 const STAT_STYLE: CSSProperties = { display: "flex", flexDirection: "row", width: "100%" };
 const STAT_BOTTOM_STYLE: CSSProperties = { fontSize: 16, height: 26, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center", cursor: "pointer" };
 
