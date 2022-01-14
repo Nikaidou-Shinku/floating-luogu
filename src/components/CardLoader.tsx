@@ -1,5 +1,6 @@
 import $ from "jquery";
 import React, { CSSProperties, useState } from "react";
+import { $CSS } from "../styles/cardStyles";
 import { Card } from ".";
 
 let floatNumber = 2000100;
@@ -10,6 +11,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
   const baseStyle: CSSProperties = {
     position: "absolute",
     zIndex: floatNumber,
+    opacity: 0,
     top: 0,
     left: 0
   };
@@ -17,7 +19,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
   const MAX_WIDTH = document.body.clientWidth;
   const deltaRight = pos.x + 169 - MAX_WIDTH;
   const deltaLeft = 218 - pos.x;
-  baseStyle.top = pos.y + 20;
+  baseStyle.top = pos.y + 30;
   baseStyle.left = pos.x - 150;
   if (deltaRight > 0) baseStyle.left -= deltaRight;
   if (deltaLeft > 0) baseStyle.left += deltaLeft;
@@ -27,6 +29,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
 
 export const CardLoader = (props: { uid: number, id: number }) => {
   const [isCardDisplay, setCard] = useState(false);
+  const [isCardPreDisplay, setPre] = useState(false);
   const [realCardStyle, setStyle] = useState<CSSProperties>(null);
 
   let cardTimeout: NodeJS.Timer = null;
@@ -36,22 +39,35 @@ export const CardLoader = (props: { uid: number, id: number }) => {
       clearTimeout(cardTimeout);
       cardTimeout = null;
     } else {
+      const tmpStyle = getCardStyle({ x: e.pageX, y: e.pageY });
+      setStyle(tmpStyle);
+      setPre(true);
       cardTimeout = setTimeout(() => {
-        const cardStyle = getCardStyle({ x: e.pageX, y: e.pageY });
+        const tmpY = (tmpStyle.top as number) - 10;
+        const cardStyle = $CSS([
+          tmpStyle,
+          {
+            top: tmpY,
+            opacity: 1,
+            transition: "0.1s"
+          }
+        ]);
         setStyle(cardStyle);
         setCard(true);
         cardTimeout = null;
-      }, 500);
+      }, 100);
     }
   };
 
   const mouseLeave = () => {
     if (isCardDisplay) {
       cardTimeout = setTimeout(() => {
+        setStyle({ opacity: 0 });
         setCard(false);
         cardTimeout = null;
-      }, 500);
+      }, 300);
     } else {
+      setPre(false);
       clearTimeout(cardTimeout);
       cardTimeout = null;
     }
@@ -63,7 +79,7 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   
   return (
     <div style={{ display: "inline" }}>
-      {isCardDisplay && <div style={realCardStyle}><Card id={props.uid} /></div>}
+      {isCardPreDisplay && <div style={realCardStyle}><Card id={props.uid} /></div>}
     </div>
   );
 };
