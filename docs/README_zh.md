@@ -22,4 +22,4 @@
 
 ## 食用方法
 
-请到 [Release 页面](https://github.com/Nikaidou-Shinku/Luogu-usercard/releases)下载最新的 `main.js` 文件，然后将里面的内容复制进油猴即可。
+请到 [Release 页面](https://github.com/Nikaidou-Shinku/Luogu-usercard/releases)下载最新的 `Full.user.js` 文件，然后将里面的内容复制进油猴即可。
