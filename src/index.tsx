@@ -21,28 +21,22 @@ const loadCard = (baseNode: Node) => {
   $(baseNode).find("a").filter((_index, element) => {
     const uid = getUID($(element).attr("href"));
     if (uid < 0) return false;
-    const parent = $(element).parent();
-    const markUID = parent.attr("uid"); // check attr "uid" to avoid multiple rendering
+    const markUID = $(element).attr("uid"); // check attr "uid" to avoid multiple rendering
     if (markUID === undefined) {
-      parent.attr("uid", uid); // set attr "uid" to avoid multiple rendering
+      $(element).attr("uid", uid); // set attr "uid" to avoid multiple rendering
       return true;
     }
     if (Number(markUID) === uid)
       return false;
-    parent.attr("uid", uid); // set attr "uid" to avoid multiple rendering
+      $(element).attr("uid", uid); // set attr "uid" to avoid multiple rendering
     return true;
   }).each((_index, element) => {
-    const uid = Number($(element).parent().attr("uid"));
-    const childrenList = $(element).parent().children();
-    childrenList.each((_index, element_now) => {
-      if (element_now === element) {
-        ++ cardId;
-        $(element_now).attr("cardid", cardId);
-        const container = $(`<div cardid=${cardId} />`);
-        cardContainer.append(container);
-        render(<CardLoader uid={uid} id={cardId}/>, container[0]);
-      }
-    });
+    const uid = Number($(element).attr("uid"));
+    ++ cardId;
+    $(element).attr("cardid", cardId);
+    const container = $(`<div cardid=${cardId} />`);
+    cardContainer.append(container);
+    render(<CardLoader uid={uid} id={cardId}/>, container[0]);
   });
 };
 
