@@ -10,7 +10,7 @@ import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../st
 // I will dispose of them in the near future :)
 const STAT_CONTAINER_STYLE = { flex: 1, margin: 10 };
 const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -5, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px" };
-const SLOGAN_STYLE = { fontSize: 14, margin: "0.25em 1.5em" };
+const SLOGAN_STYLE: CSSProperties = { fontSize: 14, margin: "0.25em 1.5em", wordBreak: "break-all" };
 const STAT_STYLE: CSSProperties = { display: "flex", flexDirection: "row", width: "100%" };
 const STAT_BOTTOM_STYLE: CSSProperties = { fontSize: 16, height: 26, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center", cursor: "pointer" };
 
@@ -87,7 +87,7 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
   const followColor = (followState & 1) === 0 ? mouseOn ? "rgb(0, 86, 179)" : "rgb(52, 152, 219)" : "#bbb";
   const getFollowText = () => {
     if ((followState & 1) === 0)
-      return "+ 关注";
+      return "关注";
     if (mouseOn)
       return "取消关注";
     if ((followState & 2) === 2)
@@ -106,7 +106,7 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
       ])
     }>
       {
-        (followState & 1) !== 0 &&
+        (followState & 1) !== 0 ?
         <svg viewBox="0 0 512 512" style={{
           width: 14,
           height: 14,
@@ -114,6 +114,14 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
           fill: followColor
         }}>
           <path d="M472.1 270.5l-193.1 199.7c-12.64 13.07-33.27 13.08-45.91 .0107l-193.2-199.7C-16.21 212.5-13.1 116.7 49.04 62.86C103.3 15.88 186.4 24.42 236.3 75.98l19.7 20.27l19.7-20.27c49.95-51.56 132.1-60.1 187.3-13.12C525.1 116.6 528.2 212.5 472.1 270.5z" />
+        </svg> :
+        <svg viewBox="0 0 512 512" style={{
+          width: 14,
+          height: 14,
+          verticalAlign: "middle",
+          fill: followColor
+        }}>
+          <path xmlns="http://www.w3.org/2000/svg" d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/>
         </svg>
       }
       &nbsp;
@@ -127,7 +135,8 @@ const getBackgroundStyle = (url: string) => {
     width: "100%",
     height: 60,
     background: `url(${url}) no-repeat`,
-    backgroundSize: "cover"
+    backgroundSize: "cover",
+    backgroundPosition: "center"
   };
 };
 
