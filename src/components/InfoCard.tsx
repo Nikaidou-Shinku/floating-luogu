@@ -9,10 +9,10 @@ import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../st
 // I put these CSS here just for temporary treatment
 // I will dispose of them in the near future :)
 const STAT_CONTAINER_STYLE = { flex: 1, margin: 10 };
-const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -5, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px" };
+const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -5, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px", lineHeight: "20px" };
 const SLOGAN_STYLE: CSSProperties = { fontSize: 14, margin: "0.25em 1.5em", wordBreak: "break-all", fontWeight: "normal" };
 const STAT_STYLE: CSSProperties = { display: "flex", flexDirection: "row", width: "100%" };
-const STAT_BOTTOM_STYLE: CSSProperties = { fontSize: 16, height: 26, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center", cursor: "pointer" };
+const STAT_BOTTOM_STYLE: CSSProperties = { fontSize: 16, height: 26, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center", cursor: "pointer", lineHeight: "18px" };
 
 const getStatItemStyle = (fontSize: number): CSSProperties => {
   return {
@@ -55,8 +55,9 @@ const ChatButton = (props: { uid: number }) => {
       ])
     }>
       <svg viewBox="0 0 512 512" style={{
-        width: 14,
-        height: 14,
+        width: 16,
+        height: 16,
+        marginBottom: 3,
         verticalAlign: "middle",
         fill: mouseOnColor
       }}>
@@ -116,8 +117,9 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
       {
         (followState & 1) !== 0 ?
         <svg viewBox="0 0 512 512" style={{
-          width: 14,
-          height: 14,
+          width: 16,
+          height: 16,
+          marginBottom: 3,
           verticalAlign: "middle",
           fill: followColor
         }}>
@@ -125,15 +127,17 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
         </svg> :
         ((followState & 2) !== 0 ? 
         <svg viewBox="0 0 512 512" style={{
-          width: 14,
-          height: 14,
+          width: 16,
+          height: 16,
+          marginBottom: 3,
           verticalAlign: "middle",
           fill: followColor
         }}>
           <path xmlns="http://www.w3.org/2000/svg" d="M480 128c0 8.188-3.125 16.38-9.375 22.62l-256 256C208.4 412.9 200.2 416 192 416s-16.38-3.125-22.62-9.375l-128-128C35.13 272.4 32 264.2 32 256c0-18.28 14.95-32 32-32c8.188 0 16.38 3.125 22.62 9.375L192 338.8l233.4-233.4C431.6 99.13 439.8 96 448 96C465.1 96 480 109.7 480 128z"/>
         </svg> : <svg viewBox="0 0 512 512" style={{
-          width: 14,
-          height: 14,
+          width: 16,
+          height: 16,
+          marginBottom: 3,
           verticalAlign: "middle",
           fill: followColor
         }}>
@@ -217,8 +221,8 @@ const CCFLevelBadge = (props: {value: number}) => {
 const BlogButton = (props: { address: string }) => {
   return (
     <a style={BLOG_STYLE} href={props.address} target="_blank">
-      <svg style={{width: 26, height: 26}} viewBox="0 0 512 512">
-        <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634-5.214-80.05-69.243-143.92-149.123-149.123-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425 110.546 5.974 198.997 94.536 204.964 204.964.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432 167.83 6.025 302.21 141.191 308.205 308.205.232 6.449-4.978 11.787-11.432 11.787z" />
+      <svg style={{width: 20, height: 20}} viewBox="0 0 512 512">
+        <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M25.57 176.1C12.41 175.4 .9117 185.2 .0523 198.4s9.173 24.65 22.39 25.5c120.1 7.875 225.7 112.7 233.6 233.6C256.9 470.3 267.4 480 279.1 480c.5313 0 1.062-.0313 1.594-.0625c13.22-.8438 23.25-12.28 22.39-25.5C294.6 310.3 169.7 185.4 25.57 176.1zM32 32C14.33 32 0 46.31 0 64s14.33 32 32 32c194.1 0 352 157.9 352 352c0 17.69 14.33 32 32 32s32-14.31 32-32C448 218.6 261.4 32 32 32zM63.1 351.9C28.63 351.9 0 380.6 0 416s28.63 64 63.1 64s64.08-28.62 64.08-64S99.37 351.9 63.1 351.9z" />
       </svg>
       个人博客
     </a>
@@ -271,7 +275,8 @@ export const InfoCard = (userInfo: UserInfo) => {
                 LG_FG("gray"),
                 {
                   fontSize: 14,
-                  position: "relative"
+                  position: "relative",
+                  lineHeight: "14px"
                 }
               ])
             }>
@@ -290,7 +295,7 @@ export const InfoCard = (userInfo: UserInfo) => {
         </div>
         {
           hasRelationship &&
-          <div style={$CSS([STAT_STYLE, {marginBottom: 10}])}>
+          <div style={$CSS([STAT_STYLE, {marginBottom: 5}])}>
             <ChatButton uid={userInfo.uid} />
             <FollowButton uid={userInfo.uid} state={followState} changeState={setFollow} fanState={[fanNumber, setFan]} />
           </div>
