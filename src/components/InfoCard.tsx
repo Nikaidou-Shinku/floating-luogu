@@ -159,15 +159,15 @@ const getAvatarStyle = (uid: number): CSSProperties => {
   };
 };
 
-const getBadge = (color: string, value: string) => {
+const UserBadge = (props: { color: string, value: string}) => {
   return (
     <span style={
       $CSS([
         BADGE_STYLE,
-        LG_BG(color)
+        LG_BG(props.color)
       ])
     }>
-      {value}
+      {props.value}
     </span>
   );
 };
@@ -234,7 +234,7 @@ export const InfoCard = (userInfo: UserInfo) => {
       <div style={CARD_CONTAINER_STYLE}>
         <div style={CARD_HEADER_STYLE}>
           <div style={{width: 80}}>
-            <div style={getAvatarStyle(userInfo.uid)} />
+            <div style={getAvatarStyle(userInfo.isBanned ? -1 : userInfo.uid)} />
             {(userInfo.ccfLevel >= 3) && <CCFLevelBadge value={userInfo.ccfLevel} />}
           </div>
           <div style={{flex: 1}}>
@@ -248,12 +248,15 @@ export const InfoCard = (userInfo: UserInfo) => {
               ])
             }>
               {userInfo.name}
-              {hasBadge && getBadge(userColor, userBadge)}
+              {hasBadge && <UserBadge color={userColor} value={userBadge} />}
             </div>
             <div style={
               $CSS([
                 LG_FG("gray"),
-                { fontSize: 14, position: "relative" }
+                {
+                  fontSize: 14,
+                  position: "relative"
+                }
               ])
             }>
               #{userInfo.uid}
@@ -268,10 +271,13 @@ export const InfoCard = (userInfo: UserInfo) => {
           <CardStatItem name="通过题数" value={userInfo.passedProblemCount === null ? "-" : String(userInfo.passedProblemCount)} />
           <CardStatItem name="咕值排名" value={userInfo.ranking === null ? "-" : String(userInfo.ranking)} />
         </div>
-        {hasRelationship && <div style={$CSS([STAT_STYLE, {marginBottom: 10}])}>
-          <ChatButton uid={userInfo.uid} />
-          <FollowButton uid={userInfo.uid} state={followState} changeState={setFollow} fanState={[fanNumber, setFan]} />
-        </div>}
+        {
+          hasRelationship &&
+          <div style={$CSS([STAT_STYLE, {marginBottom: 10}])}>
+            <ChatButton uid={userInfo.uid} />
+            <FollowButton uid={userInfo.uid} state={followState} changeState={setFollow} fanState={[fanNumber, setFan]} />
+          </div>
+        }
       </div>
     </div>
   );

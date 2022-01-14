@@ -2,10 +2,6 @@ import $ from "jquery";
 import React, { CSSProperties, useState } from "react";
 import { Card } from ".";
 
-const INLINE_STYLE: CSSProperties = {
-  display: "inline"
-};
-
 let floatNumber = 2000100;
 
 const getCardStyle = (pos: { x: number, y: number }) => {
@@ -64,12 +60,10 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   $(`[cardid=${props.id}]`)
     .off("mouseenter").on("mouseenter", mouseEnter)
     .off("mouseleave").on("mouseleave", mouseLeave);
-
-  const uid = props.uid;
   
   return (
-    <div style={INLINE_STYLE}>
-      {isCardDisplay && <div style={realCardStyle}><Card id={uid} /></div>}
+    <div style={{ display: "inline" }}>
+      {isCardDisplay && <div style={realCardStyle}><Card id={props.uid} /></div>}
     </div>
   );
 };
