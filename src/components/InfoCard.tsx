@@ -9,7 +9,7 @@ import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../st
 // I put these CSS here just for temporary treatment
 // I will dispose of them in the near future :)
 const STAT_CONTAINER_STYLE = { flex: 1, margin: 10 };
-const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -5, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px", lineHeight: "20px" };
+const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -2, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px", lineHeight: "20px" };
 const SLOGAN_STYLE: CSSProperties = { fontSize: 14, margin: "0.25em 1.5em", wordBreak: "break-all", fontWeight: "normal" };
 const STAT_STYLE: CSSProperties = { display: "flex", flexDirection: "row", width: "100%" };
 const STAT_BOTTOM_STYLE: CSSProperties = { fontSize: 16, height: 22, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center", cursor: "pointer", lineHeight: "18px" };
@@ -64,12 +64,12 @@ const ChatButton = (props: { uid: number }) => {
         width: 16,
         height: 16,
         marginBottom: 3,
+        marginRight: 5,
         verticalAlign: "middle",
         fill: mouseOnColor
       }}>
         <path d="M256 352c-16.53 0-33.06-5.422-47.16-16.41L0 173.2V400C0 426.5 21.49 448 48 448h416c26.51 0 48-21.49 48-48V173.2l-208.8 162.5C289.1 346.6 272.5 352 256 352zM16.29 145.3l212.2 165.1c16.19 12.6 38.87 12.6 55.06 0l212.2-165.1C505.1 137.3 512 125 512 112C512 85.49 490.5 64 464 64h-416C21.49 64 0 85.49 0 112C0 125 6.01 137.3 16.29 145.3z" />
       </svg>
-      &nbsp;
       私信
     </div>
   );
@@ -126,6 +126,7 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
           width: 16,
           height: 16,
           marginBottom: 3,
+          marginRight: 5,
           verticalAlign: "middle",
           fill: followColor
         }}>
@@ -136,6 +137,7 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
           width: 16,
           height: 16,
           marginBottom: 3,
+          marginRight: 5,
           verticalAlign: "middle",
           fill: followColor
         }}>
@@ -144,13 +146,13 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
           width: 16,
           height: 16,
           marginBottom: 3,
+          marginRight: 5,
           verticalAlign: "middle",
           fill: followColor
         }}>
           <path xmlns="http://www.w3.org/2000/svg" d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"/>
         </svg>)
       }
-      &nbsp;&nbsp;
       {getFollowText()}
     </div>
   );
@@ -227,7 +229,7 @@ const CCFLevelBadge = (props: {value: number}) => {
 const BlogButton = (props: { address: string }) => {
   return (
     <a style={BLOG_STYLE} href={props.address} target="_blank">
-      <svg style={{width: 20, height: 20}} viewBox="0 0 512 512">
+      <svg style={{width: 16, height: 16, margin: "2px 5px 2px 2px"}} viewBox="0 0 512 512">
         <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M25.57 176.1C12.41 175.4 .9117 185.2 .0523 198.4s9.173 24.65 22.39 25.5c120.1 7.875 225.7 112.7 233.6 233.6C256.9 470.3 267.4 480 279.1 480c.5313 0 1.062-.0313 1.594-.0625c13.22-.8438 23.25-12.28 22.39-25.5C294.6 310.3 169.7 185.4 25.57 176.1zM32 32C14.33 32 0 46.31 0 64s14.33 32 32 32c194.1 0 352 157.9 352 352c0 17.69 14.33 32 32 32s32-14.31 32-32C448 218.6 261.4 32 32 32zM63.1 351.9C28.63 351.9 0 380.6 0 416s28.63 64 63.1 64s64.08-28.62 64.08-64S99.37 351.9 63.1 351.9z" />
       </svg>
       个人博客
