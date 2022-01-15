@@ -7,10 +7,10 @@ export const bannedUserAvatar = "https://cdn.luogu.com.cn/images/banned.png";
 export const BADGE_STYLE: CSSProperties = {
   color: "#fff",
   display: "inline-block",
-  padding: "0 8px",
+  padding: "0px 5px",
   boxSizing: "border-box",
   fontWeight: 400,
-  lineHeight: 1.5,
+  lineHeight: "20px",
   borderRadius: "2px",
   fontSize: "14px",
   marginLeft: "5px"

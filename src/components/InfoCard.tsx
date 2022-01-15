@@ -9,7 +9,7 @@ import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../st
 // I put these CSS here just for temporary treatment
 // I will dispose of them in the near future :)
 const STAT_CONTAINER_STYLE = { flex: 1, margin: 10 };
-const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -5, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px", lineHeight: "20px" };
+const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -2, fontSize: 14, display: "flex", flexDirection: "row", transform: "scale(0.8)", marginBottom: "5px", background: "#eee", borderRadius: 5, padding: "3px 5px", lineHeight: "20px" };
 const SLOGAN_STYLE: CSSProperties = { fontSize: 14, margin: "0.25em 1.5em", wordBreak: "break-all", fontWeight: "normal" };
 const STAT_STYLE: CSSProperties = { display: "flex", flexDirection: "row", width: "100%" };
 const STAT_BOTTOM_STYLE: CSSProperties = { fontSize: 16, height: 22, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center", cursor: "pointer", lineHeight: "18px" };
@@ -227,10 +227,10 @@ const CCFLevelBadge = (props: {value: number}) => {
 const BlogButton = (props: { address: string }) => {
   return (
     <a style={BLOG_STYLE} href={props.address} target="_blank">
-      <svg style={{width: 20, height: 20}} viewBox="0 0 512 512">
+      <svg style={{width: 16, height: 16, margin: 2}} viewBox="0 0 512 512">
         <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M25.57 176.1C12.41 175.4 .9117 185.2 .0523 198.4s9.173 24.65 22.39 25.5c120.1 7.875 225.7 112.7 233.6 233.6C256.9 470.3 267.4 480 279.1 480c.5313 0 1.062-.0313 1.594-.0625c13.22-.8438 23.25-12.28 22.39-25.5C294.6 310.3 169.7 185.4 25.57 176.1zM32 32C14.33 32 0 46.31 0 64s14.33 32 32 32c194.1 0 352 157.9 352 352c0 17.69 14.33 32 32 32s32-14.31 32-32C448 218.6 261.4 32 32 32zM63.1 351.9C28.63 351.9 0 380.6 0 416s28.63 64 63.1 64s64.08-28.62 64.08-64S99.37 351.9 63.1 351.9z" />
       </svg>
-      个人博客
+      &nbsp;个人博客
     </a>
   );
 };
