@@ -6,11 +6,11 @@ import { getUser } from "./data/LuoguAPI";
 import { Hello, CardLoader } from "./components";
 import { getUID } from "./utils";
 
-const helloContainer = $(".lg-index-content");
-if (helloContainer.length > 0) {
-  helloContainer.prepend(`<div class="am-g" id="user-card-hello" />`);
-  render(<Hello />, document.getElementById("user-card-hello"));
-}
+// const helloContainer = $(".lg-index-content");
+// if (helloContainer.length > 0) {
+//   helloContainer.prepend(`<div class="am-g" id="user-card-hello" />`);
+//   render(<Hello />, document.getElementById("user-card-hello"));
+// }
 
 const cardContainer = $(`<div style="position: absolute; top: 0; left: 0" />`);
 $("body").append(cardContainer);
@@ -21,6 +21,8 @@ const loadCard = (baseNode: Node) => {
   $(baseNode).find("a").filter((_index, element) => {
     const uid = getUID($(element).attr("href"));
     if (uid < 0) return false;
+    if ($(element).parents(".user-nav").length > 0) // check parents to see if it's at the header
+      return false;
     const markUID = $(element).attr("uid"); // check attr "uid" to avoid multiple rendering
     if (markUID === undefined) {
       $(element).attr("uid", uid); // set attr "uid" to avoid multiple rendering
