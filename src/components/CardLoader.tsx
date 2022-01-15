@@ -14,7 +14,6 @@ const getCardStyle = (pos: { x: number, y: number }) => {
     opacity: 0,
     top: 0,
     left: 0,
-    display: "block",
   };
 
   const MAX_WIDTH = document.body.clientWidth;
@@ -87,10 +86,7 @@ export const CardLoader = (props: { uid: number, id: number }) => {
           setCard(false);
           setFadeout(false);
           setStyle($CSS([
-              tmpStyle,
-              {
-                display: "none"
-              }
+              tmpStyle, { visibility: "hidden" }
             ])
           );
         }, 150);
