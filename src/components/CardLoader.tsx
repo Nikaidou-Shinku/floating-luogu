@@ -13,7 +13,7 @@ const getCardStyle = (pos: { x: number, y: number }) => {
     zIndex: floatNumber,
     opacity: 0,
     top: 0,
-    left: 0,
+    left: 0
   };
 
   const MAX_WIDTH = document.body.clientWidth;
