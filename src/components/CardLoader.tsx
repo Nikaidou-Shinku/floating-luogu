@@ -1,5 +1,5 @@
 import $ from "jquery";
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useState, useEffect } from "react";
 import { $CSS } from "../styles/cardStyles";
 import { Card } from ".";
 
@@ -31,39 +31,65 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   const [isCardDisplay, setCard] = useState(false);
   const [isCardPreDisplay, setPre] = useState(false);
   const [realCardStyle, setStyle] = useState<CSSProperties>(null);
+  const [tmpStyle, setTmpStyle] = useState<CSSProperties>(null);
+  const [fadeOut, setFadeout] = useState(false);
 
   let cardTimeout: NodeJS.Timer = null;
 
   const mouseEnter = (e: any) => {
+    if (fadeOut)
+      return;
     if (isCardDisplay) {
       clearTimeout(cardTimeout);
       cardTimeout = null;
     } else {
-      const tmpStyle = getCardStyle({ x: e.pageX, y: e.pageY });
-      setStyle(tmpStyle);
+      setTmpStyle(getCardStyle({ x: e.pageX, y: e.pageY }));
       setPre(true);
-      cardTimeout = setTimeout(() => {
-        const tmpY = (tmpStyle.top as number) - 10;
-        const cardStyle = $CSS([
-          tmpStyle,
-          {
-            top: tmpY,
-            opacity: 1,
-            transition: "0.1s"
-          }
-        ]);
-        setStyle(cardStyle);
-        setCard(true);
-        cardTimeout = null;
-      }, 100);
     }
   };
 
+  useEffect(() => {
+    if (tmpStyle === null)
+      return;
+    setStyle(tmpStyle);
+    cardTimeout = setTimeout(() => {
+      const tmpY = (tmpStyle.top as number) - 10;
+      const cardStyle = $CSS([
+        tmpStyle,
+        {
+          top: tmpY,
+          opacity: 1,
+          transition: "0.1s"
+        }
+      ]);
+      setStyle(cardStyle);
+      setCard(true);
+      cardTimeout = null;
+    }, 100);
+  }, [tmpStyle]);
+
   const mouseLeave = () => {
+    if (fadeOut)
+      return;
     if (isCardDisplay) {
       cardTimeout = setTimeout(() => {
-        setStyle({ opacity: 0 });
-        setCard(false);
+        setFadeout(true);
+        setStyle($CSS([
+            tmpStyle,
+            {
+              opacity: 0,
+              transition: "0.1s"
+            }
+          ])
+        );
+        setTimeout(() => {
+          setCard(false);
+          setFadeout(false);
+          setStyle($CSS([
+              tmpStyle, { visibility: "hidden" }
+            ])
+          );
+        }, 150);
         cardTimeout = null;
       }, 300);
     } else {
@@ -76,10 +102,11 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   $(`[cardid=${props.id}]`)
     .off("mouseenter").on("mouseenter", mouseEnter)
     .off("mouseleave").on("mouseleave", mouseLeave);
-  
+
   return (
     <div style={{ display: "inline" }}>
-      {isCardPreDisplay && <div style={realCardStyle}><Card id={props.uid} /></div>}
+      { isCardPreDisplay && <div style={realCardStyle}
+        onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}><Card id={props.uid} /></div> }
     </div>
   );
 };
