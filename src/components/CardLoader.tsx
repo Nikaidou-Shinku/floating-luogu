@@ -1,5 +1,5 @@
 import $ from "jquery";
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useState, useEffect } from "react";
 import { $CSS } from "../styles/cardStyles";
 import { Card } from ".";
 
@@ -31,8 +31,10 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   const [isCardDisplay, setCard] = useState(false);
   const [isCardPreDisplay, setPre] = useState(false);
   const [realCardStyle, setStyle] = useState<CSSProperties>(null);
+  const [requestID, setRequestID] = useState(0);
 
   let cardTimeout: NodeJS.Timer = null;
+  let currentObject = <div></div>;
 
   const mouseEnter = (e: any) => {
     if (isCardDisplay) {
@@ -41,6 +43,7 @@ export const CardLoader = (props: { uid: number, id: number }) => {
     } else {
       const tmpStyle = getCardStyle({ x: e.pageX, y: e.pageY });
       setStyle(tmpStyle);
+      setRequestID(requestID + 1);
       setPre(true);
       cardTimeout = setTimeout(() => {
         const tmpY = (tmpStyle.top as number) - 10;
@@ -76,10 +79,8 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   $(`[cardid=${props.id}]`)
     .off("mouseenter").on("mouseenter", mouseEnter)
     .off("mouseleave").on("mouseleave", mouseLeave);
-  
-  return (
-    <div style={{ display: "inline" }}>
-      {isCardPreDisplay && <div style={realCardStyle}><Card id={props.uid} /></div>}
-    </div>
-  );
+
+  return ( isCardPreDisplay && <div style={{ display: "inline" }}>
+      { isCardPreDisplay && <div style={realCardStyle}><Card id={props.uid} requestID={requestID} /></div> }
+    </div>)
 };

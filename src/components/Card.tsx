@@ -1,5 +1,5 @@
 import $ from "jquery";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { UserInfo } from "../data/interfaces/types";
 import { getUser } from "../data/LuoguAPI";
 import { InfoCard, FailedCard } from ".";
@@ -20,17 +20,24 @@ const getInfo = (id: number): UserInfo => {
   return ans;
 };
 
-export const Card = (props: { id: number }) => {
+export const Card = (props: { id: number, requestID: number }) => {
   const uid = props.id;
+  const [loaded, setLoadType] = useState(false);
+  const [data, setData] = useState<UserInfo>(undefined);
+
   if (uid < 0) {
     console.error("Get user uid failed!");
     return <FailedCard />;
   }
   let getInfoOK = true;
-  const userInfo = getInfo(uid);
-  if (userInfo === undefined) {
-    console.error(`Get user ${uid}'s info failed!`);
-    getInfoOK = false;
-  }
-  return getInfoOK ? <InfoCard {...userInfo} /> : <FailedCard />;
+  useEffect(() => {
+    const userInfo = getInfo(uid);
+    if (userInfo === undefined) {
+      console.error(`Get user ${uid}'s info failed!`);
+      getInfoOK = false;
+    }
+    setData(userInfo);
+    setLoadType(true);
+  }, [props.requestID]);
+  return loaded ? (getInfoOK ? <InfoCard {...data} /> : <FailedCard />) : <div></div>;
 };
