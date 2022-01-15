@@ -6,11 +6,11 @@ import { getUser } from "./data/LuoguAPI";
 import { Hello, CardLoader } from "./components";
 import { getUID } from "./utils";
 
-// const helloContainer = $(".lg-index-content");
-// if (helloContainer.length > 0) {
-//   helloContainer.prepend(`<div class="am-g" id="user-card-hello" />`);
-//   render(<Hello />, document.getElementById("user-card-hello"));
-// }
+const helloContainer = $(".lg-index-content");
+if (helloContainer.length > 0) {
+  helloContainer.prepend(`<div class="am-g" id="user-card-hello" />`);
+  render(<Hello />, document.getElementById("user-card-hello"));
+}
 
 const cardContainer = $(`<div style="position: absolute; top: 0; left: 0" />`);
 $("body").append(cardContainer);
