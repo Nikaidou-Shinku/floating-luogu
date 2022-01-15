@@ -34,7 +34,6 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   const [requestID, setRequestID] = useState(0);
 
   let cardTimeout: NodeJS.Timer = null;
-  let currentObject = <div></div>;
 
   const mouseEnter = (e: any) => {
     if (isCardDisplay) {
@@ -80,7 +79,9 @@ export const CardLoader = (props: { uid: number, id: number }) => {
     .off("mouseenter").on("mouseenter", mouseEnter)
     .off("mouseleave").on("mouseleave", mouseLeave);
 
-  return ( isCardPreDisplay && <div style={{ display: "inline" }}>
+  return (
+    <div style={{ display: "inline" }}>
       { isCardPreDisplay && <div style={realCardStyle}><Card id={props.uid} requestID={requestID} /></div> }
-    </div>)
+    </div>
+  );
 };
