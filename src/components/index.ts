@@ -3,3 +3,4 @@ export { CardLoader } from "./CardLoader";
 export { Card } from "./Card";
 export { InfoCard } from "./InfoCard";
 export { FailedCard } from "./FailedCard";
+export { LoadingCard } from "./LoadingCard";
