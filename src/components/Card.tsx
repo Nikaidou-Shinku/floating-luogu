@@ -20,7 +20,7 @@ const getInfo = (id: number): UserInfo => {
   return ans;
 };
 
-export const Card = (props: { id: number, requestID: number }) => {
+export const Card = (props: { id: number }) => {
   const uid = props.id;
   const [loaded, setLoadType] = useState(false);
   const [data, setData] = useState<UserInfo>(undefined);
@@ -38,6 +38,6 @@ export const Card = (props: { id: number, requestID: number }) => {
     }
     setData(userInfo);
     setLoadType(true);
-  }, [props.requestID]);
-  return loaded ? (getInfoOK ? <InfoCard {...data} /> : <FailedCard />) : <div></div>;
+  }, []);
+  return loaded ? (getInfoOK ? <InfoCard {...data} /> : <FailedCard />) : <div />;
 };

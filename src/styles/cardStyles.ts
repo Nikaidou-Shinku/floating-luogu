@@ -19,7 +19,7 @@ export const CARD_STYLE: CSSProperties = {
   textAlign: "center",
   textSizeAdjust: "100%",
   lineHeight: "25.6px",
-  textDecoration: "none"
+  textDecoration: "none",
 };
 
 export const CARD_CONTAINER_STYLE: CSSProperties = {
