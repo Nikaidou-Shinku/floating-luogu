@@ -1,10 +1,11 @@
 import $ from "jquery";
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import { UserInfo } from "../data/interfaces/types";
 import { consts } from "../data/constants";
 import { chatWith, getAvatar, getFansPage, getFollowPage, getPracticePage, UPDATE_FOLLOW } from "../data/LuoguAPI";
 import { BADGE_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
+import { loadAddress } from ".";
 
 // I put these CSS here just for temporary treatment
 // I will dispose of them in the near future :)
@@ -255,6 +256,16 @@ export const InfoCard = (userInfo: UserInfo) => {
   //   - 3: we followed each other
   const [fanNumber, setFan] = useState(userInfo.followerCount);
   const [followState, setFollow] = useState(userInfo.reverseUserRelationship * 2 + userInfo.userRelationship);
+  const [sloganElemet, setLoadSlogan] = useState([<span>{userInfo.slogan}</span>]);
+
+  if(hasSlogan){
+    useEffect(() => {
+      loadAddress(userInfo.slogan, (ret) => {
+        setLoadSlogan(ret);
+      })
+    }, []);
+  }
+
   return (
     <div style={CARD_STYLE}>
       <div style={getBackgroundStyle(userInfo.background)} />
@@ -293,7 +304,7 @@ export const InfoCard = (userInfo: UserInfo) => {
             </div>
           </div>
         </div>
-        {hasSlogan && <div style={SLOGAN_STYLE}>{userInfo.slogan}</div>}
+        {hasSlogan && <div style={SLOGAN_STYLE}>{sloganElemet}</div>}
         <div style={STAT_STYLE}>
           <CardStatItem link={getFollowPage(userInfo.uid)} name="关注" value={String(userInfo.followingCount)} />
           <CardStatItem link={getFansPage(userInfo.uid)} name="粉丝" value={String(fanNumber)} />
