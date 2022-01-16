@@ -56,6 +56,9 @@ $("body").append(`
      transform: rotate(359deg)
  }
 }
+.cardInfo *{
+  color: black !important;
+}
 </style>`);
 
 const cardContainer = $(`<div style="position: absolute; top: 0; left: 0" />`);

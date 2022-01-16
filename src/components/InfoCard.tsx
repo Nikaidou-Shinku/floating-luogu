@@ -100,7 +100,7 @@ const updateFollow = (uid: number, setFollow: any, value: number, fanState: any)
 const FollowButton = (props: { uid: number, state: number, changeState: any, fanState: any }) => {
   const [mouseOn, setMouse] = useState(false);
   const [followState, setFollow] = useState(props.state);
-  const followColor = (followState & 1) === 0 ? mouseOn ? "rgb(0, 86, 179)" : "rgb(52, 152, 219)" : "#bbb";
+  const followColor = (followState & 1) === 0 ? (mouseOn ? "rgb(0, 86, 179)" : "rgb(52, 152, 219)") : "#bbb";
   const getFollowText = () => {
     if ((followState & 1) === 0)
       return "关注";
@@ -122,7 +122,7 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
       ])
     }>
       {
-        (followState & 1) !== 0 ?
+        (followState === 3) ?
         <svg viewBox="0 0 512 512" style={{
           width: 16,
           height: 16,
@@ -133,7 +133,7 @@ const FollowButton = (props: { uid: number, state: number, changeState: any, fan
         }}>
           <path d="M472.1 270.5l-193.1 199.7c-12.64 13.07-33.27 13.08-45.91 .0107l-193.2-199.7C-16.21 212.5-13.1 116.7 49.04 62.86C103.3 15.88 186.4 24.42 236.3 75.98l19.7 20.27l19.7-20.27c49.95-51.56 132.1-60.1 187.3-13.12C525.1 116.6 528.2 212.5 472.1 270.5z" />
         </svg> :
-        ((followState & 2) !== 0 ? 
+        ((followState & 1) !== 0 ? 
         <svg viewBox="0 0 512 512" style={{
           width: 16,
           height: 16,
@@ -228,13 +228,19 @@ const CCFLevelBadge = (props: {value: number}) => {
 };
 
 const BlogButton = (props: { address: string }) => {
+  const blog = () => { window.open(props.address); };
+  const [mouseOn, setMouse] = useState(false);
+  const fontColor = mouseOn ? "rgb(0, 86, 179)" : "rgb(52, 152, 219)";
   return (
-    <a style={BLOG_STYLE} href={props.address} target="_blank">
-      <svg style={{width: 16, height: 16, margin: "2px 5px 2px 2px"}} viewBox="0 0 512 512">
-        <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M25.57 176.1C12.41 175.4 .9117 185.2 .0523 198.4s9.173 24.65 22.39 25.5c120.1 7.875 225.7 112.7 233.6 233.6C256.9 470.3 267.4 480 279.1 480c.5313 0 1.062-.0313 1.594-.0625c13.22-.8438 23.25-12.28 22.39-25.5C294.6 310.3 169.7 185.4 25.57 176.1zM32 32C14.33 32 0 46.31 0 64s14.33 32 32 32c194.1 0 352 157.9 352 352c0 17.69 14.33 32 32 32s32-14.31 32-32C448 218.6 261.4 32 32 32zM63.1 351.9C28.63 351.9 0 380.6 0 416s28.63 64 63.1 64s64.08-28.62 64.08-64S99.37 351.9 63.1 351.9z" />
+    <span style={$CSS([BLOG_STYLE, { color: fontColor }])}
+      onMouseEnter={() => { setMouse(true); }}
+      onMouseLeave={() => { setMouse(false); }}
+      onClick={blog}>
+      <svg style={{width: 16, height: 16, margin: "2px 5px 2px 2px", fill: fontColor}} viewBox="0 0 512 512">
+        <path xmlns="http://www.w3.org/2000/svg" d="M25.57 176.1C12.41 175.4 .9117 185.2 .0523 198.4s9.173 24.65 22.39 25.5c120.1 7.875 225.7 112.7 233.6 233.6C256.9 470.3 267.4 480 279.1 480c.5313 0 1.062-.0313 1.594-.0625c13.22-.8438 23.25-12.28 22.39-25.5C294.6 310.3 169.7 185.4 25.57 176.1zM32 32C14.33 32 0 46.31 0 64s14.33 32 32 32c194.1 0 352 157.9 352 352c0 17.69 14.33 32 32 32s32-14.31 32-32C448 218.6 261.4 32 32 32zM63.1 351.9C28.63 351.9 0 380.6 0 416s28.63 64 63.1 64s64.08-28.62 64.08-64S99.37 351.9 63.1 351.9z" />
       </svg>
       个人博客
-    </a>
+    </span>
   );
 };
 
