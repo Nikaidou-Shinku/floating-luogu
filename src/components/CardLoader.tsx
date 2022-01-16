@@ -85,7 +85,7 @@ export const CardLoader = (props: { uid: number, id: number }) => {
           setCard(false);
           setFadeout(false);
           setStyle($CSS([
-              tmpStyle, { visibility: "hidden" }
+              tmpStyle, { visibility: "hidden", top: 0, left: 0 }
             ])
           );
         }, 150);
