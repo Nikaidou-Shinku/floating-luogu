@@ -23,3 +23,7 @@ export const getFansPage = (uid: number) => {
 export const getPracticePage = (uid: number) => {
   return `https://www.luogu.com.cn/user/${uid}#practice`;
 };
+
+export const getSearch = (name: string) => {
+  return `https://www.luogu.com.cn/api/user/search?keyword=${name}`;
+}

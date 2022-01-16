@@ -33,15 +33,14 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   const [realCardStyle, setStyle] = useState<CSSProperties>(null);
   const [tmpStyle, setTmpStyle] = useState<CSSProperties>(null);
   const [fadeOut, setFadeout] = useState(false);
-
-  let cardTimeout: NodeJS.Timer = null;
+  const [cardTimeout, setCardTimeout] = useState<NodeJS.Timer>(null);
 
   const mouseEnter = (e: any) => {
     if (fadeOut)
       return;
     if (isCardDisplay) {
       clearTimeout(cardTimeout);
-      cardTimeout = null;
+      setCardTimeout(null);
     } else {
       setTmpStyle(getCardStyle({ x: e.pageX, y: e.pageY }));
       setPre(true);
@@ -52,7 +51,7 @@ export const CardLoader = (props: { uid: number, id: number }) => {
     if (tmpStyle === null)
       return;
     setStyle(tmpStyle);
-    cardTimeout = setTimeout(() => {
+    setCardTimeout(setTimeout(() => {
       const tmpY = (tmpStyle.top as number) - 10;
       const cardStyle = $CSS([
         tmpStyle,
@@ -64,15 +63,15 @@ export const CardLoader = (props: { uid: number, id: number }) => {
       ]);
       setStyle(cardStyle);
       setCard(true);
-      cardTimeout = null;
-    }, 100);
+      setCardTimeout(null);
+    }, 100));
   }, [tmpStyle]);
 
   const mouseLeave = () => {
     if (fadeOut)
       return;
     if (isCardDisplay) {
-      cardTimeout = setTimeout(() => {
+      setCardTimeout(setTimeout(() => {
         setFadeout(true);
         setStyle($CSS([
             tmpStyle,
@@ -86,16 +85,16 @@ export const CardLoader = (props: { uid: number, id: number }) => {
           setCard(false);
           setFadeout(false);
           setStyle($CSS([
-              tmpStyle, { visibility: "hidden" }
+              tmpStyle, { visibility: "hidden", top: 0, left: 0 }
             ])
           );
         }, 150);
-        cardTimeout = null;
-      }, 300);
+        setCardTimeout(null);
+      }, 300));
     } else {
       setPre(false);
       clearTimeout(cardTimeout);
-      cardTimeout = null;
+      setCardTimeout(null);
     }
   };
 

@@ -39,3 +39,9 @@ export interface ColorTable {
   blue: string,
   gold: string
 }
+
+export interface SearchResult {
+  1: string,
+  index: number,
+  endIdx: number
+}
