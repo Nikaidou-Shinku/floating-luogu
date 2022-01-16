@@ -2,22 +2,20 @@ import $ from "jquery";
 import React, { useEffect, useState } from "react";
 import { UserInfo } from "../data/interfaces/types";
 import { getUser } from "../data/LuoguAPI";
-import { InfoCard, FailedCard } from ".";
+import { InfoCard, FailedCard, LoadingCard } from ".";
 
-const getInfo = (id: number): UserInfo => {
-  let ans: UserInfo;
+const getInfo = (id: number, callback: (prop: UserInfo) => void) => {
   $.ajax({
-    async: false,
+    async: true,
     type: "GET",
     url: getUser(id),
     headers: {
       "x-luogu-type": "content-only"
     },
     success: (res) => {
-      ans = res.currentData.user;
+      callback(res.currentData.user);
     }
   });
-  return ans;
 };
 
 export const Card = (props: { id: number }) => {
@@ -29,15 +27,13 @@ export const Card = (props: { id: number }) => {
     console.error("Get user uid failed!");
     return <FailedCard />;
   }
-  let getInfoOK = true;
   useEffect(() => {
-    const userInfo = getInfo(uid);
-    if (userInfo === undefined) {
-      console.error(`Get user ${uid}'s info failed!`);
-      getInfoOK = false;
-    }
-    setData(userInfo);
-    setLoadType(true);
+    getInfo(uid, (userInfo) => {
+      if (userInfo === undefined) 
+        console.error(`Get user ${uid}'s info failed!`);
+      setData(userInfo);
+      setLoadType(true);
+    });
   }, []);
-  return loaded ? (getInfoOK ? <InfoCard {...data} /> : <FailedCard />) : <div />;
+  return loaded ? (data !== undefined ? <InfoCard {...data}  /> : <FailedCard />) : <LoadingCard />;
 };
