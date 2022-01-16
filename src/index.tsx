@@ -3,6 +3,7 @@ import React from "react";
 import { render } from "react-dom";
 import { consts } from "./data/constants";
 import { getUser } from "./data/LuoguAPI";
+import { ROTATION_STYLE } from "./styles/cardStyles";
 import { Hello, CardLoader } from "./components";
 import { getUID } from "./utils";
 
@@ -12,51 +13,7 @@ if (helloContainer.length > 0) {
   render(<Hello />, document.getElementById("user-card-hello"));
 }
 
-$("body").append(`
-<style>
-.rotatable{
-  -webkit-transition-property: -webkit-transform;
-  -webkit-transition-duration: 1s;
-  -moz-transition-property: -moz-transform;
-  -moz-transition-duration: 1s;
-  -webkit-animation: rotate 1s linear infinite;
-  -moz-animation: rotate 1s linear infinite;
-  -o-animation: rotate 1s linear infinite;
-  animation: rotate 1s linear infinite;
-}
-@-webkit-keyframes rotate{
- from{
-     -webkit-transform: rotate(0deg)
- }
-  to{
-     -webkit-transform: rotate(360deg)
- }
-}
-@-moz-keyframes rotate{
- from{
-     -moz-transform: rotate(0deg)
- }
-  to{
-     -moz-transform: rotate(359deg)
- }
-}
-@-o-keyframes rotate{
- from{
-     -o-transform: rotate(0deg)
- }
-  to{
-     -o-transform: rotate(359deg)
- }
-}
-@keyframes rotate{
- from{
-     transform: rotate(0deg)
- }
-  to{
-     transform: rotate(359deg)
- }
-}
-</style>`);
+$("body").append(`<style>${ROTATION_STYLE}</style>`);
 
 const cardContainer = $(`<div style="position: absolute; top: 0; left: 0" />`);
 $("body").append(cardContainer);

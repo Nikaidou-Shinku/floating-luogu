@@ -36,3 +36,48 @@ export const CARD_HEADER_STYLE: CSSProperties = {
   position: "relative",
   height: 52
 };
+
+export const ROTATION_STYLE = `
+.rotatable{
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 1s;
+  -moz-transition-property: -moz-transform;
+  -moz-transition-duration: 1s;
+  -webkit-animation: rotate 1s linear infinite;
+  -moz-animation: rotate 1s linear infinite;
+  -o-animation: rotate 1s linear infinite;
+  animation: rotate 1s linear infinite;
+}
+@-webkit-keyframes rotate{
+ from{
+     -webkit-transform: rotate(0deg)
+ }
+  to{
+     -webkit-transform: rotate(360deg)
+ }
+}
+@-moz-keyframes rotate{
+ from{
+     -moz-transform: rotate(0deg)
+ }
+  to{
+     -moz-transform: rotate(359deg)
+ }
+}
+@-o-keyframes rotate{
+ from{
+     -o-transform: rotate(0deg)
+ }
+  to{
+     -o-transform: rotate(359deg)
+ }
+}
+@keyframes rotate{
+ from{
+     transform: rotate(0deg)
+ }
+  to{
+     transform: rotate(359deg)
+ }
+}
+`.trim();

@@ -4,7 +4,7 @@ import { UserInfo } from "../data/interfaces/types";
 import { getUser } from "../data/LuoguAPI";
 import { InfoCard, FailedCard, LoadingCard } from ".";
 
-const getInfo = (id: number, cb: (arg0: UserInfo) => void) => {
+const getInfo = (id: number, callback: (prop: UserInfo) => void) => {
   $.ajax({
     async: true,
     type: "GET",
@@ -13,7 +13,7 @@ const getInfo = (id: number, cb: (arg0: UserInfo) => void) => {
       "x-luogu-type": "content-only"
     },
     success: (res) => {
-      cb(res.currentData.user);
+      callback(res.currentData.user);
     }
   });
 };
