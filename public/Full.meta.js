@@ -8,7 +8,7 @@
 // @updateURL    https://raw.githubusercontent.com/Nikaidou-Shinku/Luogu-usercard/master/public/Full.meta.js
 // @downloadURL  https://raw.githubusercontent.com/Nikaidou-Shinku/Luogu-usercard/master/public/Full.user.js
 // @include      https://www.luogu.com.cn/*
-// @version      0.2.4
+// @version      0.3.0
 // @grant        none
 // @license      MIT
 // ==/UserScript==
