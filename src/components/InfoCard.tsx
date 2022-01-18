@@ -1,9 +1,9 @@
 import $ from "jquery";
 import React, { CSSProperties, useEffect, useState } from "react";
-import { UserInfo } from "../data/interfaces/types";
+import { UserInfo, ProblemInfo } from "../data/interfaces/types";
 import { consts } from "../data/constants";
 import { chatWith, getAvatar, getFansPage, getFollowPage, getPracticePage, UPDATE_FOLLOW } from "../data/LuoguAPI";
-import { BADGE_STYLE, LG_BG, LG_FG, LG_FL, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
+import { BADGE_STYLE, LG_BG, LG_FG, LG_FL, LG_PBG, bannedUserAvatar, defaultBackgroundURL } from "../styles/luoguStyles";
 import { $CSS, CARD_STYLE, CARD_CONTAINER_STYLE, CARD_HEADER_STYLE } from "../styles/cardStyles";
 import { loadAddress } from ".";
 
@@ -14,6 +14,8 @@ const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -2, fon
 const SLOGAN_STYLE: CSSProperties = { fontSize: 14, margin: "0.25em 1.5em", wordBreak: "break-all", fontWeight: "normal" };
 const STAT_STYLE: CSSProperties = { display: "flex", flexDirection: "row", width: "100%" };
 const STAT_BUTTON_STYLE: CSSProperties = { fontSize: 16, height: 22, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center", cursor: "pointer", lineHeight: "18px" };
+const PROBLEM_STATUS_STYLE: CSSProperties = { margin: "0.25em 1em", height: 10, borderRadius: 5, display: "flex", flexDirection: "row", overflow: "hidden" };
+
 
 const getStatItemStyle = (fontSize: number): CSSProperties => {
   return {
@@ -244,7 +246,38 @@ const BlogButton = (props: { address: string }) => {
   );
 };
 
-export const InfoCard = (userInfo: UserInfo) => {
+const PassedProblemsInfo = (props: {info: number[]}) => {
+  let count = 0;
+  props.info.forEach((x) => {count += x;});
+  return (
+    <div style={PROBLEM_STATUS_STYLE}>
+      {props.info.map((item, index) => {
+        return (
+          <div style={$CSS([
+            LG_PBG(index),
+            {
+              width: `${item / count * 100}%`,
+              height: 10
+            }])}>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const getProblemStatus = (problems: ProblemInfo[]): number[] => {
+  let ret: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
+  if(problems !== undefined)
+    problems.forEach((item, index) => {
+      ++ ret[item.difficulty];
+    });
+  return ret;
+};
+
+export const InfoCard = (argv: [UserInfo, ProblemInfo[]]) => {
+  const userInfo: UserInfo = argv[0];
+  const problemStatus: number[] = getProblemStatus(argv[1]);
   if (userInfo.background === "")
     userInfo.background = defaultBackgroundURL;
   const cUID = consts.currentUID;
@@ -254,6 +287,7 @@ export const InfoCard = (userInfo: UserInfo) => {
   const hasBlog = userInfo.blogAddress !== null;
   const hasSlogan = userInfo.slogan !== "";
   const hasRelationship = cUID > 0 && userInfo.uid !== cUID;
+  const hasProblemset = (argv[1] !== undefined) && (argv[1].length !== 0);
 
   // followState:
   //   - 0: we did not know each other
@@ -311,6 +345,10 @@ export const InfoCard = (userInfo: UserInfo) => {
           </div>
         </div>
         {hasSlogan && <div style={SLOGAN_STYLE}>{sloganElemet}</div>}
+        {
+          hasProblemset &&
+          <PassedProblemsInfo info={problemStatus}></PassedProblemsInfo>
+        }
         <div style={STAT_STYLE}>
           <CardStatItem link={getFollowPage(userInfo.uid)} name="关注" value={String(userInfo.followingCount)} />
           <CardStatItem link={getFansPage(userInfo.uid)} name="粉丝" value={String(fanNumber)} />

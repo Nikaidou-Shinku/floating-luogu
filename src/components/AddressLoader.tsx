@@ -3,14 +3,32 @@ import React from "react";
 import { SearchResult } from "../data/interfaces/types";
 import { getSearch } from "../data/LuoguAPI";
 
+const URLRegex = /https?:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
+
+const parseURL = (info: string): JSX.Element[] => {
+    let resList: JSX.Element[] = [];
+    let iter = info.matchAll(URLRegex);
+    let cur = iter.next();
+    let lastIdx = 0;
+
+    while (!cur.done){
+        let c: SearchResult = cur.value;
+        resList.push(<span>{info.substring(lastIdx, c.index)}</span>);
+        resList.push(<a target="_blank" href={c[0]}>{c[0]}</a>);
+        lastIdx = c.index + c[0].length;
+        cur = iter.next();
+    }
+
+    resList.push(<span>{info.substring(lastIdx)}</span>);
+    return resList;
+};
 
 export const loadAddress = (slogan: string, callback: (arg0: JSX.Element[]) => void) => {
     if (slogan === ""){
         callback([]); return;
     }
 
-    slogan += " ";
-    let slgs = slogan.matchAll(/@(\S+)\s/g);
+    let slgs = (slogan + " ").matchAll(/@(\S+)\s/g);
     let slgList: SearchResult[] = [], resList: JSX.Element[] = [];
 
     let cur = slgs.next();
@@ -27,13 +45,12 @@ export const loadAddress = (slogan: string, callback: (arg0: JSX.Element[]) => v
     const doCallback = () => {
         let ret: JSX.Element[] = [];
         let lastIdx = 0;
-        slogan = slogan.substring(0, slogan.length - 1);
         for (let i = 0; i < slgList.length; i ++){
-            ret.push(<span>{slogan.substring(lastIdx, slgList[i].index)}</span>);
-            ret.push(resList[i]);
+            ret = ret.concat(parseURL(slogan.substring(lastIdx, slgList[i].index - 1)));
+            ret.push(<span>@</span>, resList[i]);
             lastIdx = slgList[i].endIdx;
         }
-        ret.push(<span>{slogan.substring(lastIdx)}</span>);
+        ret = ret.concat(parseURL(slogan.substring(lastIdx)));
         callback(ret);
     };
 

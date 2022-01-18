@@ -1,10 +1,10 @@
 import $ from "jquery";
 import React, { useEffect, useState } from "react";
-import { UserInfo } from "../data/interfaces/types";
+import { UserInfo, ProblemInfo } from "../data/interfaces/types";
 import { getUser } from "../data/LuoguAPI";
 import { InfoCard, FailedCard, LoadingCard } from ".";
 
-const getInfo = (id: number, callback: (prop: UserInfo) => void) => {
+const getInfo = (id: number, callback: (prop: [UserInfo, ProblemInfo[]] ) => void) => {
   $.ajax({
     async: true,
     type: "GET",
@@ -13,7 +13,10 @@ const getInfo = (id: number, callback: (prop: UserInfo) => void) => {
       "x-luogu-type": "content-only"
     },
     success: (res) => {
-      callback(res.currentData.user);
+      callback([res.currentData.user, res.currentData.passedProblems]);
+    },
+    error: () => {
+      callback([undefined, undefined]);
     }
   });
 };
@@ -21,7 +24,7 @@ const getInfo = (id: number, callback: (prop: UserInfo) => void) => {
 export const Card = (props: { id: number }) => {
   const uid = props.id;
   const [loaded, setLoadType] = useState(false);
-  const [data, setData] = useState<UserInfo>(undefined);
+  const [data, setData] = useState<[UserInfo, ProblemInfo[]]>(undefined);
 
   if (uid < 0) {
     console.error("Get user uid failed!");

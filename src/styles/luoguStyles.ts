@@ -20,13 +20,17 @@ const COLORS: ColorTable = {
   purple: "#8e44ad",
   red: "#e74c3c",
   orange: "#e67e22",
+  yellow: "#ffc116",
   green: "#5eb95e",
   bluelight: "#0e90d2",
   gray: "#bbb",
   brown: "#996600",
   blue: "#3498db",
-  gold: "#f1c40f"
+  gold: "#f1c40f",
+  black: "#0e1d69"
 };
+
+const problemColors = [ "gray", "red", "orange", "yellow", "green", "bluelight", "purple", "black" ];
 
 export const LG_FG = (color: string): CSSProperties => {
   let styleColor = color;
@@ -48,4 +52,8 @@ export const LG_BG = (color: string): CSSProperties => {
 
 export const LG_FL = (color: string) => {
   return { fill: COLORS[color as keyof ColorTable] };
+};
+
+export const LG_PBG = (id: number): CSSProperties => {
+  return { background: COLORS[problemColors[id] as keyof ColorTable] };
 };

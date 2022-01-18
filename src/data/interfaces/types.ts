@@ -32,16 +32,27 @@ export interface ColorTable {
   purple: string,
   red: string,
   orange: string,
+  yellow: string,
   green: string,
   bluelight: string,
   gray: string,
   brown: string,
   blue: string,
-  gold: string
+  gold: string,
+  black: string
 }
 
 export interface SearchResult {
+  0: string,
   1: string,
   index: number,
   endIdx: number
+}
+
+export interface ProblemInfo {
+  pid: string,
+  title: string,
+  type: string,
+  fullScore: number,
+  difficulty: number
 }
