@@ -81,4 +81,23 @@ export const ROTATION_STYLE = `
      transform: rotate(359deg)
  }
 }
+
+.problemStatusBar div{
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  opacity: 0;
+  transition: 0.2s;
+  font-size: 8px;
+  border-radius: 5px;
+  padding: 2px 4px;
+  color: white;
+  pointer-events: none;
+  line-height: 14px;
+}
+.problemStatusBar:hover div{
+  transform: translate(-50%, -100%);
+  opacity: 1;
+}
 `.trim();

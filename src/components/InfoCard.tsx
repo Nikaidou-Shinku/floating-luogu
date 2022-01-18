@@ -14,7 +14,7 @@ const BLOG_STYLE: CSSProperties = { position: "absolute", right: 0, top: -2, fon
 const SLOGAN_STYLE: CSSProperties = { fontSize: 14, margin: "0.25em 1.5em", wordBreak: "break-all", fontWeight: "normal" };
 const STAT_STYLE: CSSProperties = { display: "flex", flexDirection: "row", width: "100%" };
 const STAT_BUTTON_STYLE: CSSProperties = { fontSize: 16, height: 22, flex: 1, borderRadius: 10, padding: "3px 0px", textAlign: "center", cursor: "pointer", lineHeight: "18px" };
-const PROBLEM_STATUS_STYLE: CSSProperties = { margin: "0.25em 1em", height: 10, borderRadius: 5, display: "flex", flexDirection: "row", overflow: "hidden" };
+const PROBLEM_STATUS_STYLE: CSSProperties = { margin: "0.25em 1em", height: 10, borderRadius: 5, display: "flex", flexDirection: "row" };
 
 
 const getStatItemStyle = (fontSize: number): CSSProperties => {
@@ -249,6 +249,8 @@ const BlogButton = (props: { address: string }) => {
 const PassedProblemsInfo = (props: {info: number[]}) => {
   let count = 0;
   props.info.forEach((x) => {count += x;});
+  // definition of ".problemStatusBar" => cardStyle.ts
+  // I want CSS3 !!! /ll
   return (
     <div style={PROBLEM_STATUS_STYLE}>
       {props.info.map((item, index) => {
@@ -257,8 +259,10 @@ const PassedProblemsInfo = (props: {info: number[]}) => {
             LG_PBG(index),
             {
               width: `${item / count * 100}%`,
-              height: 10
-            }])}>
+              height: 10,
+              position: "relative"
+            }])} className="problemStatusBar">
+            <div style={LG_PBG(index)}>{item}</div>
           </div>
         );
       })}
