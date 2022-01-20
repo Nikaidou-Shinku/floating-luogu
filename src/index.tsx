@@ -26,6 +26,8 @@ const loadCard = (baseNode: Node) => {
     if (uid < 0) return false;
     if ($(element).parents(".user-nav").length > 0) // check parents to see if it's at the header
       return false;
+    if ($(element).parents(".lg-punch").length > 0) // check parents to see if it's at clock in
+      return false;
     const markUID = $(element).attr("uid"); // check attr "uid" to avoid multiple rendering
     if (markUID === undefined) {
       $(element).attr("uid", uid); // set attr "uid" to avoid multiple rendering

@@ -289,7 +289,7 @@ export const InfoCard = (argv: [UserInfo, ProblemInfo[]]) => {
   const userBadge = userColor === "cheater" ? "作弊者" : userInfo.badge;
   const hasBadge = (userBadge !== null) && (userBadge !== "");
   const hasBlog = userInfo.blogAddress !== null;
-  const hasSlogan = userInfo.slogan !== "";
+  const hasSlogan = (userInfo.slogan !== "") && (userInfo.slogan !== null);
   const hasRelationship = cUID > 0 && userInfo.uid !== cUID;
   const hasProblemset = (argv[1] !== undefined) && (argv[1].length !== 0);
 
