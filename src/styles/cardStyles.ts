@@ -100,4 +100,33 @@ export const ROTATION_STYLE = `
   transform: translate(-50%, -100%);
   opacity: 1;
 }
+
+.uidDisplayer{
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  user-select: none;
+}
+
+.uidDisplayer:after{
+  content: "";
+  width: 0;
+  height: 2px;
+  background: #0e90d2;
+  opacity: 0.3;
+  transition: 0.2s;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+}
+
+.uidDisplayer.success:after{
+  background: #5eb95e;
+  opacity: 1;
+}
+
+.uidDisplayer:hover:after{
+  left: 0%;
+  width: 100%;
+}
 `.trim();

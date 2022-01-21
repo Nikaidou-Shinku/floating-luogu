@@ -270,10 +270,33 @@ const PassedProblemsInfo = (props: {info: number[]}) => {
   );
 };
 
+const UidDisplayer = (props: {num: number}) => {
+  // definition of ".uidDisplayer" => cardStyle.ts
+  // I want CSS3 !!! /ll
+  let [successIf, setSuccess] = useState(false);
+  const copyUID = () => {
+    if(successIf)
+      return;
+    let x = document.createElement("input");
+    x.value = "" + props.num;
+    document.body.appendChild(x);
+    x.select();
+    document.execCommand("Copy");
+    document.body.removeChild(x);
+    setSuccess(true);
+    setTimeout(() => {
+      setSuccess(false);
+    }, 1000);
+  };
+  return (
+    <div className={["uidDisplayer", (successIf ? "success" : "")].join(" ")} onClick={copyUID}>#{props.num}</div>
+  );
+};
+
 const getProblemStatus = (problems: ProblemInfo[]): number[] => {
   let ret: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
   if(problems !== undefined)
-    problems.forEach((item, index) => {
+    problems.forEach((item) => {
       ++ ret[item.difficulty];
     });
   return ret;
@@ -343,7 +366,7 @@ export const InfoCard = (argv: [UserInfo, ProblemInfo[]]) => {
                 }
               ])
             }>
-              #{userInfo.uid}
+              <UidDisplayer num={userInfo.uid}></UidDisplayer>
               {hasBlog && <BlogButton address={userInfo.blogAddress} />}
             </div>
           </div>
