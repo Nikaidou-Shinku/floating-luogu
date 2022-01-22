@@ -79,7 +79,7 @@ const ChatButton = (props: { uid: number }) => {
 };
 
 const updateFollow = (uid: number, setFollow: any, value: number, fanState: any) => {
-  if (value === 2)
+  if ((value & 3) === 2)
     return;
   const target = (value & 1) ^ 1;
   $.ajax({
