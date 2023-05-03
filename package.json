@@ -4,7 +4,8 @@
   "description": "A plugin to decorate Luogu with exquisite user card.",
   "scripts": {
     "build": "vite build",
-    "lint": "eslint --ext .tsx,.ts src/"
+    "lint": "eslint --ext .tsx,.ts src/",
+    "prepare": "husky install"
   },
   "license": "MIT",
   "devDependencies": {
@@ -15,7 +16,8 @@
     "eslint-plugin-solid": "^0.12.1",
     "typescript": "^5.0.4",
     "vite": "^4.3.4",
-    "vite-plugin-solid": "^2.7.0"
+    "vite-plugin-solid": "^2.7.0",
+    "husky": "^8.0.0"
   },
   "dependencies": {
     "solid-js": "^1.7.4"
