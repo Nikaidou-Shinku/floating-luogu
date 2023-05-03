@@ -6,12 +6,15 @@ dependencies:
     version: 1.6.10
 
 devDependencies:
+  '@types/node':
+    specifier: ^18.16.3
+    version: 18.16.3
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
   vite:
     specifier: ^4.1.1
-    version: 4.1.1
+    version: 4.1.1(@types/node@18.16.3)
   vite-plugin-solid:
     specifier: ^2.5.0
     version: 2.5.0(solid-js@1.6.10)(vite@4.1.1)
@@ -569,6 +572,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
+  /@types/node@18.16.3:
+    resolution: {integrity: sha512-OPs5WnnT1xkCBiuQrZA4+YAV4HEJejmHneyraIaxsbev5yCEr6KMwINNFP9wQeFIw8FWcoTqF3vQsa5CDaI+8Q==}
+    dev: true
+
   /ansi-styles@3.2.1:
     resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}
     engines: {node: '>=4'}
@@ -892,13 +899,13 @@ packages:
       merge-anything: 5.1.4
       solid-js: 1.6.10
       solid-refresh: 0.4.1(solid-js@1.6.10)
-      vite: 4.1.1
+      vite: 4.1.1(@types/node@18.16.3)
       vitefu: 0.2.4(vite@4.1.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@4.1.1:
+  /vite@4.1.1(@types/node@18.16.3):
     resolution: {integrity: sha512-LM9WWea8vsxhr782r9ntg+bhSFS06FJgCvvB0+8hf8UWtvaiDagKYWXndjfX6kGl74keHJUcpzrQliDXZlF5yg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -923,6 +930,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 18.16.3
       esbuild: 0.16.17
       postcss: 8.4.21
       resolve: 1.22.1
@@ -939,7 +947,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.1.1
+      vite: 4.1.1(@types/node@18.16.3)
     dev: true
 
   /yallist@3.1.1:
