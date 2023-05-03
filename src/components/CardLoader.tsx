@@ -33,7 +33,7 @@ export const CardLoader = (props: { uid: number, id: number }) => {
   const [realCardStyle, setStyle] = useState<CSSProperties>(null);
   const [tmpStyle, setTmpStyle] = useState<CSSProperties>(null);
   const [fadeOut, setFadeout] = useState(false);
-  const [cardTimeout, setCardTimeout] = useState<NodeJS.Timer>(null);
+  const [cardTimeout, setCardTimeout] = useState<number | null>(null);
 
   const mouseEnter = (e: any) => {
     if (fadeOut)
