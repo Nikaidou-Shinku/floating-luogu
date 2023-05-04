@@ -1,4 +1,4 @@
-import path from "node:path";
+import { resolve } from "node:path";
 import { PluginOption, defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
 
@@ -13,7 +13,7 @@ const tampermonkey = () => {
 // @description  A plugin to decorate Luogu with exquisite user card.
 // @include      https://www.luogu.com.cn/*
 // @version      0.4.0
-// @grant        none
+// @grant        GM_addStyle
 // @license      MIT
 // ==/UserScript==
   `.trim();
@@ -23,21 +23,43 @@ const tampermonkey = () => {
     apply: "build",
     enforce: "post",
     generateBundle: (_options, bundle) => {
-      const [, target] = Object.entries(bundle).find(([name]) => name.includes("user.js")) ?? [];
-      if (!target || target.type !== "chunk") return;
-      target.code = `${headers}\n\n${target.code}`;
+      const cssBundle = bundle["style.css"];
+      if (!cssBundle || cssBundle.type !== "asset") {
+        return;
+      }
+      const css = cssBundle.source.toString().trim();
+
+      const [, target] = Object.entries(bundle)
+        .find(([name]) => name.includes("user.js")) ?? [];
+
+      if (!target || target.type !== "chunk") {
+        return;
+      }
+
+      target.code = `${headers}\n\nGM_addStyle(\`${css}\`);\n${target.code}`;
     },
   } as PluginOption;
 };
 
 export default defineConfig({
   plugins: [solidPlugin(), tampermonkey()],
+  resolve: {
+    alias: {
+      "~": resolve(__dirname, "src"),
+    },
+  },
   build: {
     target: "esnext",
     lib: {
-      entry: path.resolve(__dirname, "src/main.tsx"),
+      entry: resolve(__dirname, "src/main.tsx"),
       name: "userscript",
+      formats: ["iife"],
       fileName: (format) => `flg.${format}.user.js`,
+    },
+    rollupOptions: {
+      output: {
+        inlineDynamicImports: true,
+      },
     },
   },
 });

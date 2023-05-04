@@ -1,0 +1,143 @@
+.card {
+  width: 300px;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 5px 1px #999;
+  background: #fff;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  text-size-adjust: 100%;
+  line-height: 25.6px;
+  text-decoration: none;
+  font-size: 16px;
+
+  > .container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    > .header {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      position: relative;
+      height: 52px;
+    }
+  }
+}
+
+.avatar {
+  box-shadow: 0 0 5px 1px #999;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  position: absolute;
+  top: -16px;
+  left: 10px;
+}
+
+.ccfbadge {
+  position: absolute;
+  background: #fff; 
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  top: 27px;
+  left: 10px;
+}
+
+.badge {
+  color: #fff;
+  display: inline-block;
+  padding: 0px 8px;
+  box-sizing: border-box;
+  font-weight: 400;
+  line-height: 20px;
+  border-radius: 2px;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.blog {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  transform: scale(0.8);
+  margin-bottom: 5px;
+  background: #eee;
+  border-radius: 5px;
+  padding: 3px 5px;
+  line-height: 20px;
+  cursor: pointer;
+
+  color: rgb(52, 152, 219);
+
+  > svg {
+    width: 16px;
+    height: 16px;
+    margin: 2px 5px 2px 2px;
+
+    fill: rgb(52, 152, 219);
+  }
+
+  &:hover {
+    color: rgb(0, 86, 179);
+
+    > svg {
+      fill: rgb(0, 86, 179);
+    }
+  }
+}
+
+.slogan {
+  font-size: 14px;
+  margin: 0.25em 1.5em;
+  word-break: break-all;
+  font-weight: normal;
+}
+
+.stat {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  > div {
+    flex: 1;
+    margin: 10px;
+
+    > div {
+      text-align: center;
+    }
+
+    &.canclick {
+      transition: 0.2s;
+      color: black;
+    
+      cursor: pointer;
+    }
+
+    &:hover {
+      &.canclick {
+        transition: 0.2s;
+        color: #777;
+      }
+    }
+  }
+}
+
+.statbutton {
+  font-size: 16px;
+  height: 22px;
+  flex: 1;
+  border-radius: 10px;
+  padding: 3px 0px;
+  text-align: center;
+  line-height: 18px;
+  cursor: pointer;
+}
