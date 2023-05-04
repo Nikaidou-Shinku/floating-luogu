@@ -8,6 +8,7 @@ import BlogButton from "./BlogButton";
 import Slogan from "./Slogan";
 import StatItem from "./StatItem";
 import styles from "./styles.module.scss";
+import card from "../card.module.css";
 
 interface InfoCardProps {
   user: FUser;
@@ -25,7 +26,7 @@ export default (props: InfoCardProps) => {
   });
 
   return (
-    <div class={styles.card}>
+    <div class={card.card}>
       <Background url={backgroundUrl()} />
       <div class={styles.container}>
         <div class={styles.header}>
@@ -61,7 +62,7 @@ export default (props: InfoCardProps) => {
           />
           <StatItem
             name="通过题数"
-            value={`${props.user.passedProblemCount}`}
+            value={`${props.user.passedProblemCount || "-"}`}
             link={`https://www.luogu.com.cn/user/${props.user.uid}#practice`}
           />
           <StatItem

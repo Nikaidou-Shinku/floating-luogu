@@ -1,0 +1,16 @@
+.card {
+  width: 300px;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 5px 1px #999;
+  background: #fff;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  text-size-adjust: 100%;
+  line-height: 25.6px;
+  text-decoration: none;
+  font-size: 16px;
+}
