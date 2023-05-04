@@ -42,11 +42,16 @@ interface UserDetails extends User {
   prize: Prize[];
 }
 
-interface UserStats {
+interface UserRelaStats {
   userRelationship: number;
   reverseUserRelationship: number;
+}
+
+interface UserProbStats {
   passedProblemCount: number;
   submittedProblemCount: number;
 }
 
-export type FUser = UserDetails & UserStats;
+type Maybe<T> = T | { [K in keyof T]: undefined };
+
+export type FUser = UserDetails & Maybe<UserRelaStats> & Maybe<UserProbStats>;

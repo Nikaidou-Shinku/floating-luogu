@@ -1,0 +1,63 @@
+export const MOCK_USER = {
+  registerTime: 1506768832,
+  introduction: "[亡语。](https://www.luogu.com.cn/discuss/448817)",
+  prize: [
+    {
+      year: 2019,
+      contestName: "CSP提高",
+      prize: "二等奖",
+    },
+    {
+      year: 2020,
+      contestName: "NOIP",
+      prize: "一等奖",
+    },
+    {
+      year: 2020,
+      contestName: "CSP提高",
+      prize: "一等奖",
+    },
+    {
+      year: 2020,
+      contestName: "APIO",
+      prize: "银牌",
+    },
+    {
+      year: 2021,
+      contestName: "NOIP",
+      prize: "一等奖",
+    },
+    {
+      year: 2021,
+      contestName: "CSP提高",
+      prize: "一等奖",
+    },
+    {
+      year: 2021,
+      contestName: "WC",
+      prize: "金牌",
+    },
+    {
+      year: 2022,
+      contestName: "WC",
+      prize: "铜牌",
+    },
+  ],
+  followingCount: 117,
+  followerCount: 1192,
+  ranking: 775,
+  blogAddress: "https://www.luogu.com.cn/blog/tiger2005/",
+  passedProblemCount: 618,
+  submittedProblemCount: 2340,
+  uid: 60864,
+  name: "tiger2005",
+  slogan: "Failure, as usual.",
+  badge: "",
+  isAdmin: false,
+  isBanned: false,
+  color: "Red",
+  ccfLevel: 7,
+  background: "https://cdn.luogu.com.cn/upload/image_hosting/e7zlrvu0.png",
+  userRelationship: undefined,
+  reverseUserRelationship: undefined,
+};

@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@tanstack/solid-query':
+    specifier: ^4.29.5
+    version: 4.29.5(solid-js@1.7.4)
   solid-js:
     specifier: ^1.7.4
     version: 1.7.4
@@ -690,6 +693,19 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
     dev: true
+
+  /@tanstack/query-core@4.29.5:
+    resolution: {integrity: sha512-xXIiyQ/4r9KfaJ3k6kejqcaqFXXBTzN2aOJ5H1J6aTJE9hl/nbgAdfF6oiIu0CD5xowejJEJ6bBg8TO7BN4NuQ==}
+    dev: false
+
+  /@tanstack/solid-query@4.29.5(solid-js@1.7.4):
+    resolution: {integrity: sha512-ypAgS9HeAViN4FAJddSxWO1SdzX3QX0rYtLJDDpmNXSXG7WueUD2s/q/OuaY3C36iI4PhTkuHfGjibMkozxzTA==}
+    peerDependencies:
+      solid-js: ^1.5.7
+    dependencies:
+      '@tanstack/query-core': 4.29.5
+      solid-js: 1.7.4
+    dev: false
 
   /@types/babel__core@7.20.0:
     resolution: {integrity: sha512-+n8dL/9GWblDO0iU6eZAwEIJVr5DWigtle+Q6HLOrh/pdbXOhOtqzq8VPPE2zvNJzSKY4vH/z3iT3tn0A3ypiQ==}
