@@ -1,0 +1,14 @@
+.card-fade-enter-active,
+.card-fade-exit-active {
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+.card-fade-enter,
+.card-fade-exit-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+.card-fade-enter {
+  transform: translateY(10px);
+}

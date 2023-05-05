@@ -12,3 +12,10 @@ export const COLOR_TABLE = {
   blue: "#3498db",
   gold: "#f1c40f",
 };
+
+export const USER_PAGE_REGEX = [
+  /^user\/(\d+)$/,
+  /^\/user\/(\d+)$/,
+  /^https:\/\/www\.luogu\.com\.cn\/user\/(\d+)$/,
+  /^https:\/\/www\.luogu\.com\.cn\/space\/show\?uid=(\d+)$/,
+];
