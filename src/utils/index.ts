@@ -31,3 +31,16 @@ export const getUid = (url: string): number | null => {
 
   return null;
 };
+
+export const getParents = (node: HTMLAnchorElement): HTMLElement[] => {
+  let now: HTMLElement | null = node;
+
+  const res: HTMLElement[] = [];
+
+  while (now) {
+    res.push(now);
+    now = now.parentElement;
+  }
+
+  return res;
+};
