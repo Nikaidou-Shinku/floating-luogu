@@ -1,4 +1,4 @@
-import { COLOR_TABLE } from "~/data/constants";
+import { COLOR_TABLE, USER_PAGE_REGEX } from "~/data/constants";
 
 export const logInfo = (...args) => console.info("[FLG]", ...args);
 export const logDebug = (...args) => {
@@ -17,4 +17,16 @@ export const luoguColor = (color: string): string => {
   }
 
   return COLOR_TABLE[color];
+};
+
+export const getUid = (url: string): number | null => {
+  for (const re of USER_PAGE_REGEX) {
+    const match = url.match(re);
+
+    if (match !== null) {
+      return Number(match[1]);
+    }
+  }
+
+  return null;
 };

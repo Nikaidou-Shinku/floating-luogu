@@ -1,3 +1,5 @@
+/// https://github.com/0f-0b/luogu-api-docs
+
 export interface UserSummary {
   uid: number;
   name: string;
@@ -42,16 +44,18 @@ interface UserDetails extends User {
   prize: Prize[];
 }
 
-interface UserRelaStats {
+interface UserRelationship {
   userRelationship: number;
   reverseUserRelationship: number;
 }
 
-interface UserProbStats {
-  passedProblemCount: number;
-  submittedProblemCount: number;
+interface UserPractice {
+  passedProblemCount: number | null;
+  submittedProblemCount: number | null;
 }
 
 type Maybe<T> = T | { [K in keyof T]: undefined };
 
-export type FUser = UserDetails & Maybe<UserRelaStats> & Maybe<UserProbStats>;
+type UserStats = Maybe<UserRelationship> & UserPractice;
+
+export type FUser = UserDetails & UserStats;

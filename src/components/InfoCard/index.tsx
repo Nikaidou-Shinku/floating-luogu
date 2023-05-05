@@ -62,12 +62,12 @@ export default (props: InfoCardProps) => {
           />
           <StatItem
             name="通过题数"
-            value={`${props.user.passedProblemCount || "-"}`}
+            value={`${props.user.passedProblemCount ?? "-"}`}
             link={`https://www.luogu.com.cn/user/${props.user.uid}#practice`}
           />
           <StatItem
             name="咕值排名"
-            value={`${props.user.ranking || "-"}`}
+            value={`${props.user.ranking ?? "-"}`}
           />
         </div>
       </div>
