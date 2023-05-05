@@ -24,7 +24,10 @@ const insertDebugBlock = () => {
           <HelloBlock />
         </LuoguBlock>
         <LuoguBlock center>
-          <InfoCard user={MOCK_USER} />
+          <InfoCard
+            user={MOCK_USER}
+            refetch={() => undefined}
+          />
         </LuoguBlock>
       </>
     ), debugContainer);

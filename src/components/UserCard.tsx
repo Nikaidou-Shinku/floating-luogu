@@ -16,7 +16,12 @@ export default (props: UserCardProps) => {
   return (
     <Suspense fallback={<LoadingCard />}>
       <Show when={query.data}>
-        {(u) => <InfoCard user={u()} />}
+        {(u) => (
+          <InfoCard
+            user={u()}
+            refetch={query.refetch}
+          />
+        )}
       </Show>
     </Suspense>
   );

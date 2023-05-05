@@ -16,7 +16,7 @@ export const fetchUser: QueryFunction<FUser, ["userinfo", number]> = async ({ qu
 
   const res = await resp.json();
 
-  logDebug(uid, res);
+  logDebug("userinfo", uid, res);
 
   return res.currentData.user;
 };
