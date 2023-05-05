@@ -42,7 +42,10 @@ const tampermonkey = () => {
 };
 
 export default defineConfig({
-  plugins: [solidPlugin(), tampermonkey()],
+  plugins: [
+    solidPlugin(),
+    tampermonkey(),
+  ],
   resolve: {
     alias: {
       "~": resolve(__dirname, "src"),
@@ -64,5 +67,10 @@ export default defineConfig({
   },
   define: {
     "process.env.NODE_ENV": "\"production\"",
+  },
+  css: {
+    modules: {
+      localsConvention: "camelCaseOnly",
+    },
   },
 });

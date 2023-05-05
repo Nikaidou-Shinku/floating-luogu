@@ -1,6 +1,6 @@
-import { Accessor, JSX, children, createContext, useContext } from "solid-js";
+import { Accessor, JSX, createContext, useContext } from "solid-js";
 
-interface AppState {
+export interface AppState {
   selfUid: number | null;
   csrfToken: string;
 }
@@ -13,13 +13,11 @@ interface StateContextProps {
 }
 
 export const StateProvider = (props: StateContextProps) => {
-  const c = children(() => props.children);
-
   const state = () => props.state;
 
   return (
     <StateContext.Provider value={state}>
-      {c()}
+      {props.children}
     </StateContext.Provider>
   );
 };

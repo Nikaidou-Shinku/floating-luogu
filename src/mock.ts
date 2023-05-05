@@ -47,6 +47,8 @@ export const MOCK_USER = {
   followerCount: 1192,
   ranking: 775,
   blogAddress: "https://www.luogu.com.cn/blog/tiger2005/",
+  userRelationship: 1,
+  reverseUserRelationship: 1,
   passedProblemCount: 618,
   submittedProblemCount: 2340,
   uid: 60864,
@@ -58,6 +60,4 @@ export const MOCK_USER = {
   color: "Red",
   ccfLevel: 7,
   background: "https://cdn.luogu.com.cn/upload/image_hosting/e7zlrvu0.png",
-  userRelationship: undefined,
-  reverseUserRelationship: undefined,
 };
