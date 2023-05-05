@@ -1,6 +1,6 @@
-import { For, createMemo, createSignal, onCleanup } from "solid-js";
+import { For, createMemo, createSignal, createUniqueId, onCleanup } from "solid-js";
 import { createQuery } from "@tanstack/solid-query";
-import { getUid } from "~/utils";
+import { getUid, logDebug, logWarn } from "~/utils";
 import { fetchSelf } from "~/utils/fetcher";
 import { StateProvider } from "~/state";
 import { CardLoader } from "~/components";
@@ -25,9 +25,37 @@ const check = (node: HTMLAnchorElement): number | null => {
     return null;
   }
 
-  node.setAttribute("uid", `${uid}`);
-
   return uid;
+};
+
+const dirty = (node: HTMLAnchorElement): HTMLAnchorElement => {
+  const id = createUniqueId();
+  node.setAttribute(`card-${id}`, "");
+  const parent = node.parentElement;
+
+  if (parent === null) {
+    return node;
+  }
+
+  if (parent.tagName !== "SPAN") {
+    return node;
+  }
+
+  logDebug("kill official card", parent);
+
+  // 鲨官方卡片🔪
+  const newParent = document.createElement("template");
+  newParent.innerHTML = parent.outerHTML;
+  const newNode = newParent.content.querySelector(`a[card-${id}]`);
+
+  if (newNode === null) {
+    logWarn("不小心把新 node 玩丢了！");
+    return node;
+  }
+
+  parent.replaceWith(newParent.content);
+
+  return newNode as HTMLAnchorElement;
 };
 
 export default () => {
@@ -67,11 +95,14 @@ export default () => {
 
     for (const item of links) {
       const uid = check(item);
+
       if (uid === null) {
         continue;
       }
 
-      result.push({ anchor: item, uid });
+      item.setAttribute("uid", `${uid}`);
+
+      result.push({ anchor: dirty(item), uid });
     }
 
     setLinks((last) => [...last, ...result]);
