@@ -5,7 +5,10 @@ export interface AppState {
   csrfToken: string;
 }
 
-const StateContext = createContext<Accessor<AppState>>();
+const StateContext = createContext<Accessor<AppState>>(() => ({
+  selfUid: null,
+  csrfToken: "",
+}));
 
 interface StateContextProps {
   children: JSX.Element;
@@ -22,12 +25,4 @@ export const StateProvider = (props: StateContextProps) => {
   );
 };
 
-export const useState = () => {
-  const res = useContext(StateContext);
-
-  if (typeof res === "undefined") {
-    throw new Error("StateProvider is not found");
-  }
-
-  return res;
-};
+export const useState = () => useContext(StateContext);

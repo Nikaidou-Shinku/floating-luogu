@@ -8,10 +8,11 @@ interface UserCardProps {
 }
 
 export default (props: UserCardProps) => {
-  const query = createQuery(
-    () => ["userinfo", props.uid],
-    fetchUser,
-  );
+  const query = createQuery({
+    queryKey: () => ["userinfo", props.uid],
+    queryFn: fetchUser,
+    staleTime: 10000, // cache for 10s
+  });
 
   return (
     <Suspense fallback={<LoadingCard />}>
