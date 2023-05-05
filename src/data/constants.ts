@@ -17,6 +17,8 @@ export const USER_PAGE_REGEX = [
   /^user\/(\d+)$/,
   /^\/user\/(\d+)$/,
   /^https:\/\/www\.luogu\.com\.cn\/user\/(\d+)$/,
+  /^space\/show\?uid=(\d+)$/,
+  /^\/space\/show\?uid=(\d+)$/,
   /^https:\/\/www\.luogu\.com\.cn\/space\/show\?uid=(\d+)$/,
 ];
 

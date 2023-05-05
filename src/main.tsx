@@ -57,6 +57,8 @@ const insertCardContainer = () => {
 const main = () => {
   insertDebugBlock();
   insertCardContainer();
+
+  logInfo("脚本已加载√", "Floating Luogu 用户群 885149235 欢迎来玩~");
 };
 
 main();
