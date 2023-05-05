@@ -10,4 +10,4 @@ A plugin to decorate Luogu with exquisite user card.
 
 ## Usage
 
-Please go to the [release page](https://github.com/Nikaidou-Shinku/Luogu-usercard/releases) to download the latest version of `flg.user.js`, and just copy the content of it into the Tampermonkey.
+Please go to the [release page](https://github.com/Nikaidou-Shinku/floating-luogu/releases) to download the latest version of `flg.user.js`, and just copy the content of it into the Tampermonkey.

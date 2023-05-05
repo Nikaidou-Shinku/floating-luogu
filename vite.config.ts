@@ -9,7 +9,7 @@ const tampermonkey = () => {
 // @namespace    http://tampermonkey.net/
 // @icon         https://cdn.luogu.com.cn/upload/usericon/3.png
 // @author       yurzhang & tiger2005
-// @homepage     https://github.com/Nikaidou-Shinku/Luogu-usercard
+// @homepage     https://github.com/Nikaidou-Shinku/floating-luogu
 // @description  A plugin to decorate Luogu with exquisite user card.
 // @include      https://www.luogu.com.cn/*
 // @version      0.4.0
