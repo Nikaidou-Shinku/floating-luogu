@@ -1,5 +1,6 @@
 import { COLOR_TABLE, USER_PAGE_REGEX } from "~/data/constants";
 
+export const logWarn = (...args) => console.warn("[FLG]", ...args);
 export const logInfo = (...args) => console.info("[FLG]", ...args);
 export const logDebug = (...args) => {
   if (import.meta.env.MODE === "dev") {

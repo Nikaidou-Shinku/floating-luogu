@@ -7,6 +7,6 @@ interface SloganProps {
 // TODO: parse slogan
 export default (props: SloganProps) => (
   <div class={styles.slogan}>
-    <span>{props.slogan}</span>
+    <p>{props.slogan}</p>
   </div>
 );
