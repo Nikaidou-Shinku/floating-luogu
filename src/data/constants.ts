@@ -19,3 +19,8 @@ export const USER_PAGE_REGEX = [
   /^https:\/\/www\.luogu\.com\.cn\/user\/(\d+)$/,
   /^https:\/\/www\.luogu\.com\.cn\/space\/show\?uid=(\d+)$/,
 ];
+
+export const BANNED_CLASS = [
+  "user-nav", // 右上角自己头像
+  "lg-punch", // 首页个人运势
+];

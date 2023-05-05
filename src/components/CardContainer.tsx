@@ -1,6 +1,7 @@
 import { For, createMemo, createSignal, createUniqueId, onCleanup } from "solid-js";
 import { createQuery } from "@tanstack/solid-query";
-import { getUid, logDebug, logWarn } from "~/utils";
+import { BANNED_CLASS } from "~/data/constants";
+import { getParents, getUid, logDebug, logWarn } from "~/utils";
 import { fetchSelf } from "~/utils/fetcher";
 import { StateProvider } from "~/state";
 import { CardLoader } from "~/components";
@@ -16,6 +17,15 @@ const check = (node: HTMLAnchorElement): number | null => {
 
   if (uid === null) {
     return null;
+  }
+
+  // special case
+  const parents = getParents(node);
+
+  for (const keyword of BANNED_CLASS) {
+    if (parents.find((item) => item.classList.contains(keyword))) {
+      return null;
+    }
   }
 
   // avoid duplicate
