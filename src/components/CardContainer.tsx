@@ -59,7 +59,11 @@ const dirty = (node: HTMLAnchorElement): HTMLAnchorElement => {
 };
 
 export default () => {
-  const self = createQuery(() => ["self"], fetchSelf);
+  const self = createQuery({
+    queryKey: () => ["self"],
+    queryFn: fetchSelf,
+    staleTime: Infinity, // never stale
+  });
 
   const csrfToken = (() => {
     const csrfNode = document.querySelector("meta[name=\"csrf-token\"]");
