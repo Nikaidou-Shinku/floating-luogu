@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
-import { PluginOption, defineConfig } from "vite";
+import { PluginOption } from "vite";
+import { defineConfig } from "vitest/config";
 import solidPlugin from "vite-plugin-solid";
 
 const tampermonkey = () => {
@@ -72,5 +73,8 @@ export default defineConfig({
     modules: {
       localsConvention: "camelCaseOnly",
     },
+  },
+  test: {
+    environment: "jsdom",
   },
 });
