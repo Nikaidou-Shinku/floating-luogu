@@ -83,6 +83,10 @@
   margin: 0.25em 1.5em;
   word-break: break-all;
   font-weight: normal;
+
+  > p {
+    margin-bottom: 0px;
+  }
 }
 
 .stat {
