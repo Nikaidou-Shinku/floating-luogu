@@ -3,6 +3,7 @@ import { COLOR_TABLE, USER_PAGE_REGEX } from "~/data/constants";
 export const logWarn = (...args) => console.warn("[FLG]", ...args);
 export const logInfo = (...args) => console.info("[FLG]", ...args);
 export const logDebug = (...args) => {
+  /* c8 ignore next 4 */
   if (import.meta.env.MODE === "dev") {
     console.debug("[FLG]", ...args);
   }
@@ -32,7 +33,7 @@ export const getUid = (url: string): number | null => {
   return null;
 };
 
-export const getParents = (node: HTMLAnchorElement): HTMLElement[] => {
+export const getParents = (node: HTMLElement): HTMLElement[] => {
   let now: HTMLElement | null = node;
 
   const res: HTMLElement[] = [];

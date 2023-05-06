@@ -76,5 +76,21 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
+    transformMode: {
+      web: [/\.[jt]sx?$/],
+    },
+    coverage: {
+      all: true,
+      exclude: [
+        "coverage/**",
+        "dist/**",
+        "test{,s}/**",
+        "test{,-*}.{js,cjs,mjs,ts,tsx,jsx}",
+        "**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}",
+        "**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*",
+        "**/.{eslint,mocha,prettier}rc.{js,cjs,yml}",
+        "src/data/types.ts",
+      ],
+    },
   },
 });
